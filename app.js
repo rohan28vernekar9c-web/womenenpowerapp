@@ -79,14 +79,14 @@ function navigateToWithOutHistory(screenId) {
 
 function updateBottomNav(screenId) {
     const role = _currentRole();
-    const bottomNav   = document.getElementById('bottom-nav');
-    const companyNav  = document.getElementById('company-bottom-nav');
+    const bottomNav = document.getElementById('bottom-nav');
+    const companyNav = document.getElementById('company-bottom-nav');
     const globalHeader = document.getElementById('global-header');
 
     if (role === 'company') {
         // Company users: always hide women nav & header; company nav visibility
         // is managed by companyNavTo — just ensure women nav stays hidden
-        if (bottomNav)    bottomNav.classList.add('hidden');
+        if (bottomNav) bottomNav.classList.add('hidden');
         if (globalHeader) globalHeader.classList.add('hidden');
         return;
     }
@@ -95,10 +95,10 @@ function updateBottomNav(screenId) {
     if (companyNav) companyNav.classList.add('hidden');
 
     if (screensWithoutNav.includes(screenId)) {
-        if (bottomNav)    bottomNav.classList.add('hidden');
+        if (bottomNav) bottomNav.classList.add('hidden');
         if (globalHeader) globalHeader.classList.add('hidden');
     } else {
-        if (bottomNav)    bottomNav.classList.remove('hidden');
+        if (bottomNav) bottomNav.classList.remove('hidden');
         if (globalHeader) globalHeader.classList.remove('hidden');
     }
 
@@ -404,7 +404,7 @@ function renderDashboardJobs() {
         const initials = job.company.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
         const typeColor = job.type === 'Full-time' ? 'background:rgba(77,65,223,0.10);color:#4d41df'
             : job.type === 'Part-time' ? 'background:rgba(135,80,65,0.10);color:#875041'
-            : 'background:rgba(92,81,160,0.10);color:#5c51a0';
+                : 'background:rgba(92,81,160,0.10);color:#5c51a0';
         return `
         <div class="dash-job-card" onclick="navigateTo('jobs')">
             <div style="display:flex;align-items:flex-start;gap:12px">
@@ -983,7 +983,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const LOGO_LIGHT = 'tarini%20logo%20png.png';
-const LOGO_DARK  = 'logo.png';
+const LOGO_DARK = 'logo.png';
 
 function _applyLogo(isDark) {
     const src = isDark ? LOGO_DARK : LOGO_LIGHT;
@@ -1016,15 +1016,15 @@ function toggleTheme() {
 
     // Re-render all dynamic screens on theme change
     const _screens = [
-        ['screen-rewards',              () => initRewardsScreen()],
-        ['screen-notifications',        () => loadNotificationsScreen()],
-        ['screen-applications',         () => loadApplicationsScreen()],
-        ['screen-dashboard',            () => loadDashboardEarnings()],
-        ['screen-profile',              () => loadProfileScreen()],
-        ['screen-company-training',     () => loadTrainingScreen()],
-        ['screen-company-dashboard',    () => loadCompanyDashboard()],
+        ['screen-rewards', () => initRewardsScreen()],
+        ['screen-notifications', () => loadNotificationsScreen()],
+        ['screen-applications', () => loadApplicationsScreen()],
+        ['screen-dashboard', () => loadDashboardEarnings()],
+        ['screen-profile', () => loadProfileScreen()],
+        ['screen-company-training', () => loadTrainingScreen()],
+        ['screen-company-dashboard', () => loadCompanyDashboard()],
         ['screen-company-applications', () => loadCompanyApplications()],
-        ['screen-co-own-profile',        () => loadCompanyProfile()],
+        ['screen-co-own-profile', () => loadCompanyProfile()],
     ];
     _screens.forEach(([id, fn]) => { const s = document.getElementById(id); if (s && s.classList.contains('active')) fn(); });
     // Update upload modal card bg if open
@@ -1113,16 +1113,16 @@ window._currentRole = _currentRole;
 
 // Enforce nav visibility based on role — call this any time screens change
 function _applyRoleNav(role) {
-    const bottomNav   = document.getElementById('bottom-nav');
-    const companyNav  = document.getElementById('company-bottom-nav');
+    const bottomNav = document.getElementById('bottom-nav');
+    const companyNav = document.getElementById('company-bottom-nav');
     const globalHeader = document.getElementById('global-header');
     if (role === 'company') {
-        if (bottomNav)    bottomNav.classList.add('hidden');
+        if (bottomNav) bottomNav.classList.add('hidden');
         if (globalHeader) globalHeader.classList.add('hidden');   // company has its own header area
-        if (companyNav)   companyNav.classList.remove('hidden');
+        if (companyNav) companyNav.classList.remove('hidden');
     } else {
-        if (companyNav)   companyNav.classList.add('hidden');
-        if (bottomNav)    bottomNav.classList.remove('hidden');
+        if (companyNav) companyNav.classList.add('hidden');
+        if (bottomNav) bottomNav.classList.remove('hidden');
         if (globalHeader) globalHeader.classList.remove('hidden');
     }
 }
@@ -1206,10 +1206,10 @@ async function _loadUserProfileFromFirestore(user) {
             if (data.role === 'company') {
                 const cd = JSON.parse(localStorage.getItem(companyKey) || '{}');
                 if (!cd.name) {
-                    cd.name     = data.name     || user.displayName || '';
-                    cd.email    = data.email    || user.email       || '';
+                    cd.name = data.name || user.displayName || '';
+                    cd.email = data.email || user.email || '';
                     cd.industry = data.industry || '';
-                    cd.address  = data.address  || '';
+                    cd.address = data.address || '';
                     localStorage.setItem(companyKey, JSON.stringify(cd));
                 }
             }
@@ -1339,7 +1339,7 @@ auth.onAuthStateChanged(async (user) => {
     const regBtn = document.getElementById('register-btn');
     if (loginBtn) { loginBtn.disabled = false; }
     if (regBtn) { regBtn.disabled = false; }
-    try { setAuthLang(localStorage.getItem('authLangPref') || 'en'); } catch(e) {}
+    try { setAuthLang(localStorage.getItem('authLangPref') || 'en'); } catch (e) { }
 
     if (user) {
         // Ensure user-scoped profile is loaded before any UI update
@@ -1363,7 +1363,7 @@ auth.onAuthStateChanged(async (user) => {
             earnCoins(30, 'Welcome to Tarini!');
             checkAndAwardBadges();
         }
-        
+
         const loginScreen = document.getElementById('screen-login');
         if (loginScreen && loginScreen.classList.contains('active')) {
             routeByRole();
@@ -1381,7 +1381,7 @@ auth.onAuthStateChanged(async (user) => {
 // --- GLOBAL LANGUAGE SUPPORT (Google Translate) ---
 function setGlobalLang(lang) {
     localStorage.setItem('appLangPref', lang);
-    
+
     // Find the hidden Google Translate dropdown
     const selectField = document.querySelector('.goog-te-combo');
     if (selectField) {
@@ -1394,12 +1394,12 @@ window.setGlobalLang = setGlobalLang;
 // Initialize language preference
 document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('appLangPref') || 'en';
-    
+
     // Keep custom dropdowns synced
     document.querySelectorAll('.lang-dropdown').forEach(dropdown => {
         dropdown.value = savedLang;
         // override onchange
-        dropdown.onchange = function() {
+        dropdown.onchange = function () {
             setGlobalLang(this.value);
         };
     });
@@ -1414,7 +1414,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }, 500);
-    
+
     // Stop checking after 10 seconds to avoid infinite polling
     setTimeout(() => clearInterval(checkGoogleTranslate), 10000);
 });
@@ -1424,25 +1424,25 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================================
 
 const _allJobs = [
-    { id:1, title:'Tailoring Instructor', company:'Craft India', location:'Mumbai', locType:'On-site', type:'Part-time', exp:'Mid-level', industry:'Education', salaryNum:12000, salary:'\u20b912,000/mo', grad:'linear-gradient(135deg,#4d41df,#675df9)' },
-    { id:2, title:'Data Entry Operator', company:'TechSeva', location:'Remote', locType:'Remote', type:'Full-time', exp:'Fresher', industry:'Technology', salaryNum:15000, salary:'\u20b915,000/mo', grad:'linear-gradient(135deg,#5c51a0,#c8bfff)' },
-    { id:3, title:'Beauty Consultant', company:'GlowUp Studio', location:'Delhi', locType:'On-site', type:'Freelance', exp:'Fresher', industry:'Retail', salaryNum:8000, salary:'\u20b98,000/mo', grad:'linear-gradient(135deg,#875041,#feb5a2)' },
-    { id:4, title:'Junior Web Developer', company:'CodeNest', location:'Hybrid', locType:'Hybrid', type:'Full-time', exp:'Fresher', industry:'Technology', salaryNum:22000, salary:'\u20b922,000/mo', grad:'linear-gradient(135deg,#2d6a4f,#74c69d)' },
-    { id:5, title:'Healthcare Assistant', company:'MediCare Plus', location:'Bangalore', locType:'On-site', type:'Full-time', exp:'Mid-level', industry:'Healthcare', salaryNum:18000, salary:'\u20b918,000/mo', grad:'linear-gradient(135deg,#c77dff,#7b2d8b)' },
-    { id:6, title:'Content Writer', company:'WordCraft', location:'Remote', locType:'Remote', type:'Freelance', exp:'Fresher', industry:'Technology', salaryNum:9000, salary:'\u20b99,000/mo', grad:'linear-gradient(135deg,#4d41df,#875041)' },
-    { id:7, title:'Retail Store Manager', company:'FashionHub', location:'Chennai', locType:'On-site', type:'Full-time', exp:'Senior', industry:'Retail', salaryNum:35000, salary:'\u20b935,000/mo', grad:'linear-gradient(135deg,#875041,#5c51a0)' },
-    { id:8, title:'UI/UX Design Intern', company:'PixelWorks', location:'Hybrid', locType:'Hybrid', type:'Internship', exp:'Fresher', industry:'Technology', salaryNum:7000, salary:'\u20b97,000/mo', grad:'linear-gradient(135deg,#675df9,#c8bfff)' },
-    { id:9, title:'Primary School Teacher', company:'BrightMinds School', location:'Pune', locType:'On-site', type:'Full-time', exp:'Mid-level', industry:'Education', salaryNum:20000, salary:'\u20b920,000/mo', grad:'linear-gradient(135deg,#2d6a4f,#4d41df)' },
-    { id:10, title:'Senior Data Analyst', company:'InsightCo', location:'Remote', locType:'Remote', type:'Full-time', exp:'Senior', industry:'Technology', salaryNum:55000, salary:'\u20b955,000/mo', grad:'linear-gradient(135deg,#4d41df,#2d6a4f)' },
+    { id: 1, title: 'Tailoring Instructor', company: 'Craft India', location: 'Mumbai', locType: 'On-site', type: 'Part-time', exp: 'Mid-level', industry: 'Education', salaryNum: 12000, salary: '\u20b912,000/mo', grad: 'linear-gradient(135deg,#4d41df,#675df9)' },
+    { id: 2, title: 'Data Entry Operator', company: 'TechSeva', location: 'Remote', locType: 'Remote', type: 'Full-time', exp: 'Fresher', industry: 'Technology', salaryNum: 15000, salary: '\u20b915,000/mo', grad: 'linear-gradient(135deg,#5c51a0,#c8bfff)' },
+    { id: 3, title: 'Beauty Consultant', company: 'GlowUp Studio', location: 'Delhi', locType: 'On-site', type: 'Freelance', exp: 'Fresher', industry: 'Retail', salaryNum: 8000, salary: '\u20b98,000/mo', grad: 'linear-gradient(135deg,#875041,#feb5a2)' },
+    { id: 4, title: 'Junior Web Developer', company: 'CodeNest', location: 'Hybrid', locType: 'Hybrid', type: 'Full-time', exp: 'Fresher', industry: 'Technology', salaryNum: 22000, salary: '\u20b922,000/mo', grad: 'linear-gradient(135deg,#2d6a4f,#74c69d)' },
+    { id: 5, title: 'Healthcare Assistant', company: 'MediCare Plus', location: 'Bangalore', locType: 'On-site', type: 'Full-time', exp: 'Mid-level', industry: 'Healthcare', salaryNum: 18000, salary: '\u20b918,000/mo', grad: 'linear-gradient(135deg,#c77dff,#7b2d8b)' },
+    { id: 6, title: 'Content Writer', company: 'WordCraft', location: 'Remote', locType: 'Remote', type: 'Freelance', exp: 'Fresher', industry: 'Technology', salaryNum: 9000, salary: '\u20b99,000/mo', grad: 'linear-gradient(135deg,#4d41df,#875041)' },
+    { id: 7, title: 'Retail Store Manager', company: 'FashionHub', location: 'Chennai', locType: 'On-site', type: 'Full-time', exp: 'Senior', industry: 'Retail', salaryNum: 35000, salary: '\u20b935,000/mo', grad: 'linear-gradient(135deg,#875041,#5c51a0)' },
+    { id: 8, title: 'UI/UX Design Intern', company: 'PixelWorks', location: 'Hybrid', locType: 'Hybrid', type: 'Internship', exp: 'Fresher', industry: 'Technology', salaryNum: 7000, salary: '\u20b97,000/mo', grad: 'linear-gradient(135deg,#675df9,#c8bfff)' },
+    { id: 9, title: 'Primary School Teacher', company: 'BrightMinds School', location: 'Pune', locType: 'On-site', type: 'Full-time', exp: 'Mid-level', industry: 'Education', salaryNum: 20000, salary: '\u20b920,000/mo', grad: 'linear-gradient(135deg,#2d6a4f,#4d41df)' },
+    { id: 10, title: 'Senior Data Analyst', company: 'InsightCo', location: 'Remote', locType: 'Remote', type: 'Full-time', exp: 'Senior', industry: 'Technology', salaryNum: 55000, salary: '\u20b955,000/mo', grad: 'linear-gradient(135deg,#4d41df,#2d6a4f)' },
 ];
 
 const _topCompanies = [
-    { name:'TechSeva', industry:'Technology', tagline:'Hiring freshers now!', color:'#4d41df', bg:'rgba(77,65,223,0.10)', icon:'computer' },
-    { name:'MediCare Plus', industry:'Healthcare', tagline:'Join our care team', color:'#c77dff', bg:'rgba(199,125,255,0.10)', icon:'health_and_safety' },
-    { name:'BrightMinds', industry:'Education', tagline:'Shape future leaders', color:'#2d6a4f', bg:'rgba(45,106,79,0.10)', icon:'school' },
-    { name:'FashionHub', industry:'Retail', tagline:'Style meets career', color:'#875041', bg:'rgba(135,80,65,0.10)', icon:'storefront' },
-    { name:'PixelWorks', industry:'Design', tagline:'Create. Inspire. Grow.', color:'#5c51a0', bg:'rgba(92,81,160,0.10)', icon:'palette' },
-    { name:'WordCraft', industry:'Media', tagline:'Words that matter', color:'#675df9', bg:'rgba(103,93,249,0.10)', icon:'edit_note' },
+    { name: 'TechSeva', industry: 'Technology', tagline: 'Hiring freshers now!', color: '#4d41df', bg: 'rgba(77,65,223,0.10)', icon: 'computer' },
+    { name: 'MediCare Plus', industry: 'Healthcare', tagline: 'Join our care team', color: '#c77dff', bg: 'rgba(199,125,255,0.10)', icon: 'health_and_safety' },
+    { name: 'BrightMinds', industry: 'Education', tagline: 'Shape future leaders', color: '#2d6a4f', bg: 'rgba(45,106,79,0.10)', icon: 'school' },
+    { name: 'FashionHub', industry: 'Retail', tagline: 'Style meets career', color: '#875041', bg: 'rgba(135,80,65,0.10)', icon: 'storefront' },
+    { name: 'PixelWorks', industry: 'Design', tagline: 'Create. Inspire. Grow.', color: '#5c51a0', bg: 'rgba(92,81,160,0.10)', icon: 'palette' },
+    { name: 'WordCraft', industry: 'Media', tagline: 'Words that matter', color: '#675df9', bg: 'rgba(103,93,249,0.10)', icon: 'edit_note' },
 ];
 
 const _jobFilters = { type: new Set(), exp: new Set(), loc: new Set(), industry: new Set(), salary: new Set() };
@@ -1545,12 +1545,12 @@ function _renderJobCards(jobs) {
 
     const typeColor = t => t === 'Full-time' ? 'background:rgba(77,65,223,0.10);color:#4d41df'
         : t === 'Part-time' ? 'background:rgba(135,80,65,0.10);color:#875041'
-        : t === 'Internship' ? 'background:rgba(92,81,160,0.10);color:#5c51a0'
-        : 'background:rgba(45,106,79,0.10);color:#2d6a4f';
+            : t === 'Internship' ? 'background:rgba(92,81,160,0.10);color:#5c51a0'
+                : 'background:rgba(45,106,79,0.10);color:#2d6a4f';
 
     const _dark = document.documentElement.classList.contains('dark-theme');
     const titleCol = _dark ? '#e8e6f4' : '#1b1b24';
-    const subCol   = _dark ? '#9e9bb8' : '#777587';
+    const subCol = _dark ? '#9e9bb8' : '#777587';
 
     container.innerHTML = jobs.map(job => {
         const initials = job.company.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
@@ -1580,27 +1580,27 @@ function _renderJobCards(jobs) {
 
 function renderJobsCompanies(prefiltered) {
     const container = document.getElementById('jobs-company-container');
-    const countEl   = document.getElementById('jobs-company-count');
+    const countEl = document.getElementById('jobs-company-count');
     if (!container) return;
-    const _dark   = document.documentElement.classList.contains('dark-theme');
-    const cardBg  = _dark ? '#1c1b2e' : '#fff';
-    const border  = _dark ? '#2a2840' : '#eae6f3';
-    const titleC  = _dark ? '#e8e6f4' : '#1b1b24';
-    const subC    = _dark ? '#9e9bb8' : '#777587';
+    const _dark = document.documentElement.classList.contains('dark-theme');
+    const cardBg = _dark ? '#1c1b2e' : '#fff';
+    const border = _dark ? '#2a2840' : '#eae6f3';
+    const titleC = _dark ? '#e8e6f4' : '#1b1b24';
+    const subC = _dark ? '#9e9bb8' : '#777587';
     const shadowN = _dark ? '0 2px 10px -4px rgba(0,0,0,0.5)' : '0 2px 10px -4px rgba(77,65,223,0.10)';
     const shadowH = _dark ? '0 6px 18px -4px rgba(0,0,0,0.7)' : '0 6px 18px -4px rgba(77,65,223,0.18)';
-    const grads   = ['linear-gradient(135deg,#4d41df,#675df9)','linear-gradient(135deg,#875041,#feb5a2)','linear-gradient(135deg,#5c51a0,#c8bfff)','linear-gradient(135deg,#2d6a4f,#74c69d)','linear-gradient(135deg,#c77dff,#7b2d8b)'];
+    const grads = ['linear-gradient(135deg,#4d41df,#675df9)', 'linear-gradient(135deg,#875041,#feb5a2)', 'linear-gradient(135deg,#5c51a0,#c8bfff)', 'linear-gradient(135deg,#2d6a4f,#74c69d)', 'linear-gradient(135deg,#c77dff,#7b2d8b)'];
     const openJobs = name => _allJobs.filter(j => j.company.toLowerCase() === name.toLowerCase()).length;
 
     _getAllRegisteredCompanies().then(all => {
         const preview = (prefiltered || all).slice(0, 8);
         if (countEl) countEl.textContent = '';
         container.innerHTML = preview.map((c, i) => {
-            const initials = (c.name||'C').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+            const initials = (c.name || 'C').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
             const grad = grads[i % grads.length];
             const jobs = openJobs(c.name);
             const isReg = !!c.uid;
-            const safeName = c.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+            const safeName = c.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             return `<div onclick="openCompanyProfile('${safeName}')"
                 style="flex-shrink:0;width:130px;background:${cardBg};border-radius:18px;padding:14px 12px;border:1px solid ${border};box-shadow:${shadowN};cursor:pointer;transition:transform 0.15s,box-shadow 0.15s;text-align:center"
                 onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='${shadowH}'"
@@ -1610,15 +1610,15 @@ function renderJobsCompanies(prefiltered) {
                     ? `<img src="${c.logo}" style="width:44px;height:44px;border-radius:12px;object-fit:cover;margin:0 auto 8px;display:block" onerror="this.style.display='none'"/>`
                     : `<div style="width:44px;height:44px;border-radius:12px;background:${grad};display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:16px;font-weight:800;color:#fff">${initials}</div>`}
                 <p style="font-size:12px;font-weight:700;color:${titleC};line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</p>
-                <p style="font-size:10px;color:${subC};margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.industry||''}</p>
-                <p style="font-size:10px;font-weight:600;color:#4d41df;margin-top:3px">${jobs} job${jobs!==1?'s':''}</p>
+                <p style="font-size:10px;color:${subC};margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.industry || ''}</p>
+                <p style="font-size:10px;font-weight:600;color:#4d41df;margin-top:3px">${jobs} job${jobs !== 1 ? 's' : ''}</p>
                 ${isReg ? '<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;background:rgba(45,106,79,0.12);color:#276749;display:inline-block;margin-top:3px">Registered</span>' : ''}
             </div>`;
         }).join('');
     });
 }
 window.renderJobsCompanies = renderJobsCompanies;
-window.renderTopCompanies  = renderJobsCompanies;
+window.renderTopCompanies = renderJobsCompanies;
 
 // ---- Full companies page ----
 
@@ -1632,7 +1632,7 @@ function clearAllCompanyFilters() {
     const s = document.getElementById('all-companies-search');
     const ind = document.getElementById('all-companies-industry');
     const loc = document.getElementById('all-companies-location');
-    if (s)   s.value   = '';
+    if (s) s.value = '';
     if (ind) ind.value = '';
     if (loc) loc.value = '';
     renderAllCompanies();
@@ -1641,20 +1641,20 @@ window.clearAllCompanyFilters = clearAllCompanyFilters;
 
 function renderAllCompanies() {
     const container = document.getElementById('all-companies-list');
-    const countEl   = document.getElementById('all-companies-count');
+    const countEl = document.getElementById('all-companies-count');
     if (!container) return;
 
-    const query    = (document.getElementById('all-companies-search')?.value    || '').toLowerCase().trim();
-    const industry = (document.getElementById('all-companies-industry')?.value  || '').toLowerCase().trim();
-    const location = (document.getElementById('all-companies-location')?.value  || '').toLowerCase().trim();
+    const query = (document.getElementById('all-companies-search')?.value || '').toLowerCase().trim();
+    const industry = (document.getElementById('all-companies-industry')?.value || '').toLowerCase().trim();
+    const location = (document.getElementById('all-companies-location')?.value || '').toLowerCase().trim();
 
     container.innerHTML = '<div style="display:flex;align-items:center;gap:10px;padding:20px;background:rgba(77,65,223,0.05);border-radius:14px"><span class="material-symbols-outlined text-primary" style="font-size:20px;animation:spin 1s linear infinite">progress_activity</span><p style="font-size:13px;color:#777587">Loading companies...</p></div>';
 
     _getAllRegisteredCompanies().then(all => {
         let filtered = all;
-        if (query)    filtered = filtered.filter(c => (c.name+' '+c.industry+' '+c.location+' '+(c.tagline||'')).toLowerCase().includes(query));
-        if (industry) filtered = filtered.filter(c => (c.industry||'').toLowerCase().includes(industry));
-        if (location) filtered = filtered.filter(c => (c.location||'').toLowerCase().includes(location));
+        if (query) filtered = filtered.filter(c => (c.name + ' ' + c.industry + ' ' + c.location + ' ' + (c.tagline || '')).toLowerCase().includes(query));
+        if (industry) filtered = filtered.filter(c => (c.industry || '').toLowerCase().includes(industry));
+        if (location) filtered = filtered.filter(c => (c.location || '').toLowerCase().includes(location));
 
         if (countEl) countEl.textContent = filtered.length + ' compan' + (filtered.length === 1 ? 'y' : 'ies');
 
@@ -1663,20 +1663,20 @@ function renderAllCompanies() {
             return;
         }
 
-        const _dark  = document.documentElement.classList.contains('dark-theme');
+        const _dark = document.documentElement.classList.contains('dark-theme');
         const cardBg = _dark ? '#1c1b2e' : '#fff';
         const border = _dark ? '#2a2840' : '#eae6f3';
         const titleC = _dark ? '#e8e6f4' : '#1b1b24';
-        const subC   = _dark ? '#9e9bb8' : '#777587';
-        const grads  = ['linear-gradient(135deg,#4d41df,#675df9)','linear-gradient(135deg,#875041,#feb5a2)','linear-gradient(135deg,#5c51a0,#c8bfff)','linear-gradient(135deg,#2d6a4f,#74c69d)','linear-gradient(135deg,#c77dff,#7b2d8b)'];
+        const subC = _dark ? '#9e9bb8' : '#777587';
+        const grads = ['linear-gradient(135deg,#4d41df,#675df9)', 'linear-gradient(135deg,#875041,#feb5a2)', 'linear-gradient(135deg,#5c51a0,#c8bfff)', 'linear-gradient(135deg,#2d6a4f,#74c69d)', 'linear-gradient(135deg,#c77dff,#7b2d8b)'];
         const openJobs = name => _allJobs.filter(j => j.company.toLowerCase() === name.toLowerCase()).length;
 
         container.innerHTML = filtered.map((c, i) => {
-            const initials = (c.name||'C').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+            const initials = (c.name || 'C').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
             const grad = grads[i % grads.length];
             const jobs = openJobs(c.name);
             const isReg = !!c.uid;
-            const safeName = c.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+            const safeName = c.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
             return `<div style="background:${cardBg};border-radius:18px;padding:16px;border:1px solid ${border};box-shadow:0 2px 12px -4px rgba(77,65,223,0.08);display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s;active:scale-[0.98]"
                 onclick="openCompanyProfile('${safeName}')"
                 onmouseenter="this.style.transform='translateY(-1px)'" onmouseleave="this.style.transform=''">
@@ -1688,12 +1688,12 @@ function renderAllCompanies() {
                         <p style="font-size:14px;font-weight:700;color:${titleC};line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.name}</p>
                         ${isReg ? '<span style="flex-shrink:0;font-size:10px;font-weight:700;padding:1px 7px;border-radius:999px;background:rgba(45,106,79,0.12);color:#276749">Registered</span>' : ''}
                     </div>
-                    <p style="font-size:12px;color:${subC};margin-top:2px">${c.industry||''}${c.location ? ' &bull; '+c.location : ''}</p>
+                    <p style="font-size:12px;color:${subC};margin-top:2px">${c.industry || ''}${c.location ? ' &bull; ' + c.location : ''}</p>
                     ${c.tagline ? `<p style="font-size:11px;color:#4d41df;font-weight:600;margin-top:2px">${c.tagline}</p>` : ''}
                 </div>
                 <div style="flex-shrink:0;text-align:right">
                     <p style="font-size:13px;font-weight:800;color:#4d41df">${jobs}</p>
-                    <p style="font-size:10px;color:${subC}">job${jobs!==1?'s':''}</p>
+                    <p style="font-size:10px;color:${subC}">job${jobs !== 1 ? 's' : ''}</p>
                 </div>
             </div>`;
         }).join('');
@@ -1870,7 +1870,7 @@ function openJobDetail(jobId) {
 
     // Reset apply button
     const applyBtn = document.getElementById('jd-apply-btn');
-    if (applyBtn) { applyBtn.disabled = false; applyBtn.style.opacity = '1'; applyBtn.onclick = function(){ openJobApplyForm(); }; applyBtn.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings:\'FILL\' 1">send</span> Apply Now'; }
+    if (applyBtn) { applyBtn.disabled = false; applyBtn.style.opacity = '1'; applyBtn.onclick = function () { openJobApplyForm(); }; applyBtn.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings:\'FILL\' 1">send</span> Apply Now'; }
 
     // Bookmark state
     const apps = JSON.parse(localStorage.getItem(_appsKey()) || '[]');
@@ -2004,17 +2004,17 @@ function finalSubmitApplication() {
     const btn = el('af-submit-btn');
 
     // Collect values
-    const name    = el('af-name').value.trim();
-    const email   = el('af-email').value.trim();
-    const phone   = el('af-phone').value.trim();
-    const street  = el('af-street').value.trim();
-    const city    = el('af-city').value.trim();
-    const state   = el('af-state').value.trim();
+    const name = el('af-name').value.trim();
+    const email = el('af-email').value.trim();
+    const phone = el('af-phone').value.trim();
+    const street = el('af-street').value.trim();
+    const city = el('af-city').value.trim();
+    const state = el('af-state').value.trim();
     const pincode = el('af-pincode').value.trim();
-    const edu     = el('af-education').value;
-    const skills  = el('af-skills').value.trim();
-    const exp     = el('af-experience').value;
-    const notes   = el('af-notes').value.trim();
+    const edu = el('af-education').value;
+    const skills = el('af-skills').value.trim();
+    const exp = el('af-experience').value;
+    const notes = el('af-notes').value.trim();
     const resumeFile = el('af-resume').files[0];
 
     // Validate
@@ -2042,18 +2042,18 @@ function finalSubmitApplication() {
         const alreadyApplied = apps.some(a => a.jobId === job.id);
         if (!alreadyApplied) {
             apps.unshift({
-                jobId:      job.id,
-                userId:     user ? user.uid : 'guest',
-                companyId:  job.company.toLowerCase().replace(/\s+/g, '_'),
-                title:      job.title,
-                company:    job.company,
-                location:   job.location,
-                salary:     job.salary,
-                type:       job.type,
-                industry:   job.industry,
-                grad:       job.grad,
-                appliedAt:  new Date().toISOString(),
-                status:     'Applied',
+                jobId: job.id,
+                userId: user ? user.uid : 'guest',
+                companyId: job.company.toLowerCase().replace(/\s+/g, '_'),
+                title: job.title,
+                company: job.company,
+                location: job.location,
+                salary: job.salary,
+                type: job.type,
+                industry: job.industry,
+                grad: job.grad,
+                appliedAt: new Date().toISOString(),
+                status: 'Applied',
                 applicant: { name, email, phone, address: `${street}, ${city}, ${state} - ${pincode}`, education: edu, experience: exp, skills, notes, resumeName: resumeName || '' },
             });
             localStorage.setItem(_appsKey(), JSON.stringify(apps));
@@ -2115,10 +2115,10 @@ function loadApplicationsScreen() {
     const statusStyle = s => s === 'Applied'
         ? 'background:rgba(77,65,223,0.10);color:#4d41df'
         : s === 'Reviewed'
-        ? 'background:rgba(45,106,79,0.10);color:#276749'
-        : s === 'Shortlisted'
-        ? 'background:rgba(92,81,160,0.10);color:#5c51a0'
-        : 'background:rgba(135,80,65,0.10);color:#875041';
+            ? 'background:rgba(45,106,79,0.10);color:#276749'
+            : s === 'Shortlisted'
+                ? 'background:rgba(92,81,160,0.10);color:#5c51a0'
+                : 'background:rgba(135,80,65,0.10);color:#875041';
 
     container.innerHTML = apps.map((app, idx) => {
         const initials = app.company.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
@@ -2205,51 +2205,51 @@ const _origNavigateTo = navigateTo;
 // ============================================================
 
 const _skillCategories = [
-    { name:'Design',        icon:'palette',           color:'#5c51a0', bg:'rgba(92,81,160,0.12)',   grad:'linear-gradient(135deg,#5c51a0,#c8bfff)' },
-    { name:'Development',   icon:'code',              color:'#4d41df', bg:'rgba(77,65,223,0.12)',   grad:'linear-gradient(135deg,#4d41df,#675df9)' },
-    { name:'Marketing',     icon:'campaign',          color:'#875041', bg:'rgba(135,80,65,0.12)',   grad:'linear-gradient(135deg,#875041,#feb5a2)' },
-    { name:'Finance',       icon:'payments',          color:'#276749', bg:'rgba(45,106,79,0.12)',   grad:'linear-gradient(135deg,#276749,#74c69d)' },
-    { name:'Communication', icon:'forum',             color:'#675df9', bg:'rgba(103,93,249,0.12)',  grad:'linear-gradient(135deg,#675df9,#c4c0ff)' },
-    { name:'Business',      icon:'business_center',   color:'#c77dff', bg:'rgba(199,125,255,0.12)', grad:'linear-gradient(135deg,#c77dff,#e5deff)' },
-    { name:'Basics',        icon:'lightbulb',         color:'#e63946', bg:'rgba(230,57,70,0.10)',   grad:'linear-gradient(135deg,#e63946,#ffb3b8)' },
-    { name:'Smartphone',    icon:'smartphone',        color:'#4d41df', bg:'rgba(77,65,223,0.12)',   grad:'linear-gradient(135deg,#4d41df,#5c51a0)' },
+    { name: 'Design', icon: 'palette', color: '#5c51a0', bg: 'rgba(92,81,160,0.12)', grad: 'linear-gradient(135deg,#5c51a0,#c8bfff)' },
+    { name: 'Development', icon: 'code', color: '#4d41df', bg: 'rgba(77,65,223,0.12)', grad: 'linear-gradient(135deg,#4d41df,#675df9)' },
+    { name: 'Marketing', icon: 'campaign', color: '#875041', bg: 'rgba(135,80,65,0.12)', grad: 'linear-gradient(135deg,#875041,#feb5a2)' },
+    { name: 'Finance', icon: 'payments', color: '#276749', bg: 'rgba(45,106,79,0.12)', grad: 'linear-gradient(135deg,#276749,#74c69d)' },
+    { name: 'Communication', icon: 'forum', color: '#675df9', bg: 'rgba(103,93,249,0.12)', grad: 'linear-gradient(135deg,#675df9,#c4c0ff)' },
+    { name: 'Business', icon: 'business_center', color: '#c77dff', bg: 'rgba(199,125,255,0.12)', grad: 'linear-gradient(135deg,#c77dff,#e5deff)' },
+    { name: 'Basics', icon: 'lightbulb', color: '#e63946', bg: 'rgba(230,57,70,0.10)', grad: 'linear-gradient(135deg,#e63946,#ffb3b8)' },
+    { name: 'Smartphone', icon: 'smartphone', color: '#4d41df', bg: 'rgba(77,65,223,0.12)', grad: 'linear-gradient(135deg,#4d41df,#5c51a0)' },
 ];
 const _allCourses = [
     // â”€â”€ English courses â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    { id:1,  ytId:'dU1xS07N-FA', title:'Figma for Beginners',              instructor:'DesignCraft',    category:'Design',        level:'Beginner',     durLabel:'1.5h',  durKey:'short',  type:'Free', rating:4.8, enrolled:3200, lang:'en', tags:['figma','ui','design','wireframe'],          desc:'Learn UI design fundamentals using Figma from wireframes to polished prototypes.' },
-    { id:2,  ytId:'w7ejDZ8SWv8', title:'React.js Essentials',              instructor:'CodeNest',       category:'Development',   level:'Intermediate', durLabel:'4h',    durKey:'medium', type:'Free', rating:4.7, enrolled:5100, lang:'en', tags:['react','javascript','web','frontend'],      desc:'Build modern web apps with React hooks, components, and state management.' },
-    { id:3,  ytId:'nU-IIXBWlS4', title:'Digital Marketing Masterclass',    instructor:'GrowthLab',      category:'Marketing',     level:'Beginner',     durLabel:'3h',    durKey:'medium', type:'Paid', rating:4.6, enrolled:2800, lang:'en', tags:['marketing','seo','social media','ads'],     desc:'Master SEO, social media, email campaigns, and paid ads from scratch.' },
-    { id:4,  ytId:'HQzoZfc3GwQ', title:'Personal Finance Basics',          instructor:'MoneyWise',      category:'Finance',       level:'Beginner',     durLabel:'1h',    durKey:'short',  type:'Free', rating:4.9, enrolled:7400, lang:'en', tags:['finance','budget','savings','money'],       desc:'Understand budgeting, savings, investments, and financial planning for everyday life.' },
-    { id:5,  ytId:'tShavGuo0_E', title:'Public Speaking Confidence',       instructor:'SpeakUp India',  category:'Communication', level:'Beginner',     durLabel:'2h',    durKey:'short',  type:'Free', rating:4.5, enrolled:1900, lang:'en', tags:['speaking','confidence','communication'],    desc:'Overcome stage fear and communicate with clarity, confidence, and impact.' },
-    { id:6,  ytId:'Fqch5OrUPvA', title:'Business Plan Writing',            instructor:'StartupSchool',  category:'Business',      level:'Intermediate', durLabel:'2.5h',  durKey:'medium', type:'Paid', rating:4.7, enrolled:1500, lang:'en', tags:['business','plan','startup','entrepreneur'], desc:'Write a compelling business plan that attracts investors and guides your startup.' },
-    { id:7,  ytId:'1Rs2ND1ryYc', title:'Advanced CSS and Animations',      instructor:'PixelWorks',     category:'Development',   level:'Advanced',     durLabel:'6h',    durKey:'long',   type:'Paid', rating:4.6, enrolled:2100, lang:'en', tags:['css','animation','web','frontend'],         desc:'Deep-dive into CSS Grid, Flexbox, custom animations, and responsive design patterns.' },
-    { id:8,  ytId:'p7HKvqRI_Bo', title:'Stock Market for Women',           instructor:'InvestHer',      category:'Finance',       level:'Beginner',     durLabel:'3h',    durKey:'medium', type:'Paid', rating:4.8, enrolled:3300, lang:'en', tags:['stocks','invest','finance','wealth'],       desc:'Demystify the stock market and learn how to invest smartly and build long-term wealth.' },
-    { id:9,  ytId:'0JCUH5daCCE', title:'Brand Identity Design',            instructor:'DesignCraft',    category:'Design',        level:'Intermediate', durLabel:'5h',    durKey:'long',   type:'Paid', rating:4.7, enrolled:1800, lang:'en', tags:['brand','logo','design','identity'],         desc:'Create powerful brand identities with logos, colour palettes, typography, and style guides.' },
-    { id:10, ytId:'r-uWLhO2v9U', title:'Python for Data Analysis',         instructor:'DataSeva',       category:'Development',   level:'Intermediate', durLabel:'8h',    durKey:'long',   type:'Free', rating:4.9, enrolled:6200, lang:'en', tags:['python','data','analysis','pandas'],        desc:'Use Python, Pandas, and Matplotlib to analyse real-world datasets and visualise insights.' },
-    { id:11, ytId:'sPW9r5NDLSE', title:'Effective Email Writing',          instructor:'SpeakUp India',  category:'Communication', level:'Beginner',     durLabel:'45min', durKey:'short',  type:'Free', rating:4.4, enrolled:980,  lang:'en', tags:['email','writing','communication','office'],  desc:'Write professional emails that get responses - structure, tone, and etiquette covered.' },
-    { id:12, ytId:'ZpL0oGFBsDg', title:'Entrepreneurship 101',             instructor:'StartupSchool',  category:'Business',      level:'Beginner',     durLabel:'4h',    durKey:'medium', type:'Free', rating:4.6, enrolled:4100, lang:'en', tags:['entrepreneur','startup','business','idea'],  desc:'From idea to execution - learn the mindset, tools, and steps to launch your own venture.' },
-    { id:13, ytId:'Ks-_Mh1QhMc', title:'How to Use a Smartphone',         instructor:'TechSaathi',     category:'Smartphone',    level:'Beginner',     durLabel:'30min', durKey:'short',  type:'Free', rating:4.9, enrolled:8200, lang:'en', tags:['smartphone','mobile','apps','beginner'],    desc:'Simple step-by-step guide to using a smartphone - calls, messages, apps, and internet.' },
-    { id:14, ytId:'mP_ZMmgFHPY', title:'Internet Basics for Beginners',   instructor:'TechSaathi',     category:'Basics',        level:'Beginner',     durLabel:'25min', durKey:'short',  type:'Free', rating:4.8, enrolled:6100, lang:'en', tags:['internet','basics','google','whatsapp'],    desc:'Learn what the internet is, how to browse safely, and use Google and WhatsApp.' },
-    { id:15, ytId:'VvCytJvd4H0', title:'Basic Computer Skills',            instructor:'DigiLearn',      category:'Basics',        level:'Beginner',     durLabel:'40min', durKey:'short',  type:'Free', rating:4.7, enrolled:5400, lang:'en', tags:['computer','basics','typing','files'],       desc:'Learn to use a computer from scratch - typing, files, and basic applications.' },
-    { id:16, ytId:'eIho2S0ZahI', title:'How to Start a Small Business',    instructor:'StartupSchool',  category:'Basics',        level:'Beginner',     durLabel:'35min', durKey:'short',  type:'Free', rating:4.8, enrolled:4900, lang:'en', tags:['business','small','startup','basics'],      desc:'Simple guide to starting your own small business with little money and big ideas.' },
-    { id:17, ytId:'tShavGuo0_E', title:'Simple Communication Skills',      instructor:'SpeakUp India',  category:'Basics',        level:'Beginner',     durLabel:'20min', durKey:'short',  type:'Free', rating:4.6, enrolled:3800, lang:'en', tags:['communication','speaking','basics','soft'],  desc:'Learn to speak clearly and confidently in everyday situations at home and work.' },
-    { id:18, ytId:'Ks-_Mh1QhMc', title:'WhatsApp and Video Calls Guide',  instructor:'TechSaathi',     category:'Smartphone',    level:'Beginner',     durLabel:'20min', durKey:'short',  type:'Free', rating:4.9, enrolled:7100, lang:'en', tags:['whatsapp','video call','smartphone','chat'], desc:'Learn to use WhatsApp, make video calls, and share photos with family and friends.' },
-    { id:19, ytId:'HQzoZfc3GwQ', title:'Save Money Every Day',             instructor:'MoneyWise',      category:'Finance',       level:'Beginner',     durLabel:'18min', durKey:'short',  type:'Free', rating:4.7, enrolled:5200, lang:'en', tags:['savings','money','budget','daily'],         desc:'Easy tips to save money from your daily income and build a small emergency fund.' },
-    { id:20, ytId:'1Rs2ND1ryYc', title:'Basic Sewing and Tailoring',       instructor:'CraftIndia',     category:'Basics',        level:'Beginner',     durLabel:'45min', durKey:'short',  type:'Free', rating:4.8, enrolled:4300, lang:'en', tags:['sewing','tailoring','stitching','craft'],   desc:'Learn basic hand stitching and simple tailoring skills to make and repair clothes.' },
+    { id: 1, ytId: 'dU1xS07N-FA', title: 'Figma for Beginners', instructor: 'DesignCraft', category: 'Design', level: 'Beginner', durLabel: '1.5h', durKey: 'short', type: 'Free', rating: 4.8, enrolled: 3200, lang: 'en', tags: ['figma', 'ui', 'design', 'wireframe'], desc: 'Learn UI design fundamentals using Figma from wireframes to polished prototypes.' },
+    { id: 2, ytId: 'w7ejDZ8SWv8', title: 'React.js Essentials', instructor: 'CodeNest', category: 'Development', level: 'Intermediate', durLabel: '4h', durKey: 'medium', type: 'Free', rating: 4.7, enrolled: 5100, lang: 'en', tags: ['react', 'javascript', 'web', 'frontend'], desc: 'Build modern web apps with React hooks, components, and state management.' },
+    { id: 3, ytId: 'nU-IIXBWlS4', title: 'Digital Marketing Masterclass', instructor: 'GrowthLab', category: 'Marketing', level: 'Beginner', durLabel: '3h', durKey: 'medium', type: 'Paid', rating: 4.6, enrolled: 2800, lang: 'en', tags: ['marketing', 'seo', 'social media', 'ads'], desc: 'Master SEO, social media, email campaigns, and paid ads from scratch.' },
+    { id: 4, ytId: 'HQzoZfc3GwQ', title: 'Personal Finance Basics', instructor: 'MoneyWise', category: 'Finance', level: 'Beginner', durLabel: '1h', durKey: 'short', type: 'Free', rating: 4.9, enrolled: 7400, lang: 'en', tags: ['finance', 'budget', 'savings', 'money'], desc: 'Understand budgeting, savings, investments, and financial planning for everyday life.' },
+    { id: 5, ytId: 'tShavGuo0_E', title: 'Public Speaking Confidence', instructor: 'SpeakUp India', category: 'Communication', level: 'Beginner', durLabel: '2h', durKey: 'short', type: 'Free', rating: 4.5, enrolled: 1900, lang: 'en', tags: ['speaking', 'confidence', 'communication'], desc: 'Overcome stage fear and communicate with clarity, confidence, and impact.' },
+    { id: 6, ytId: 'Fqch5OrUPvA', title: 'Business Plan Writing', instructor: 'StartupSchool', category: 'Business', level: 'Intermediate', durLabel: '2.5h', durKey: 'medium', type: 'Paid', rating: 4.7, enrolled: 1500, lang: 'en', tags: ['business', 'plan', 'startup', 'entrepreneur'], desc: 'Write a compelling business plan that attracts investors and guides your startup.' },
+    { id: 7, ytId: '1Rs2ND1ryYc', title: 'Advanced CSS and Animations', instructor: 'PixelWorks', category: 'Development', level: 'Advanced', durLabel: '6h', durKey: 'long', type: 'Paid', rating: 4.6, enrolled: 2100, lang: 'en', tags: ['css', 'animation', 'web', 'frontend'], desc: 'Deep-dive into CSS Grid, Flexbox, custom animations, and responsive design patterns.' },
+    { id: 8, ytId: 'p7HKvqRI_Bo', title: 'Stock Market for Women', instructor: 'InvestHer', category: 'Finance', level: 'Beginner', durLabel: '3h', durKey: 'medium', type: 'Paid', rating: 4.8, enrolled: 3300, lang: 'en', tags: ['stocks', 'invest', 'finance', 'wealth'], desc: 'Demystify the stock market and learn how to invest smartly and build long-term wealth.' },
+    { id: 9, ytId: '0JCUH5daCCE', title: 'Brand Identity Design', instructor: 'DesignCraft', category: 'Design', level: 'Intermediate', durLabel: '5h', durKey: 'long', type: 'Paid', rating: 4.7, enrolled: 1800, lang: 'en', tags: ['brand', 'logo', 'design', 'identity'], desc: 'Create powerful brand identities with logos, colour palettes, typography, and style guides.' },
+    { id: 10, ytId: 'r-uWLhO2v9U', title: 'Python for Data Analysis', instructor: 'DataSeva', category: 'Development', level: 'Intermediate', durLabel: '8h', durKey: 'long', type: 'Free', rating: 4.9, enrolled: 6200, lang: 'en', tags: ['python', 'data', 'analysis', 'pandas'], desc: 'Use Python, Pandas, and Matplotlib to analyse real-world datasets and visualise insights.' },
+    { id: 11, ytId: 'sPW9r5NDLSE', title: 'Effective Email Writing', instructor: 'SpeakUp India', category: 'Communication', level: 'Beginner', durLabel: '45min', durKey: 'short', type: 'Free', rating: 4.4, enrolled: 980, lang: 'en', tags: ['email', 'writing', 'communication', 'office'], desc: 'Write professional emails that get responses - structure, tone, and etiquette covered.' },
+    { id: 12, ytId: 'ZpL0oGFBsDg', title: 'Entrepreneurship 101', instructor: 'StartupSchool', category: 'Business', level: 'Beginner', durLabel: '4h', durKey: 'medium', type: 'Free', rating: 4.6, enrolled: 4100, lang: 'en', tags: ['entrepreneur', 'startup', 'business', 'idea'], desc: 'From idea to execution - learn the mindset, tools, and steps to launch your own venture.' },
+    { id: 13, ytId: 'Ks-_Mh1QhMc', title: 'How to Use a Smartphone', instructor: 'TechSaathi', category: 'Smartphone', level: 'Beginner', durLabel: '30min', durKey: 'short', type: 'Free', rating: 4.9, enrolled: 8200, lang: 'en', tags: ['smartphone', 'mobile', 'apps', 'beginner'], desc: 'Simple step-by-step guide to using a smartphone - calls, messages, apps, and internet.' },
+    { id: 14, ytId: 'mP_ZMmgFHPY', title: 'Internet Basics for Beginners', instructor: 'TechSaathi', category: 'Basics', level: 'Beginner', durLabel: '25min', durKey: 'short', type: 'Free', rating: 4.8, enrolled: 6100, lang: 'en', tags: ['internet', 'basics', 'google', 'whatsapp'], desc: 'Learn what the internet is, how to browse safely, and use Google and WhatsApp.' },
+    { id: 15, ytId: 'VvCytJvd4H0', title: 'Basic Computer Skills', instructor: 'DigiLearn', category: 'Basics', level: 'Beginner', durLabel: '40min', durKey: 'short', type: 'Free', rating: 4.7, enrolled: 5400, lang: 'en', tags: ['computer', 'basics', 'typing', 'files'], desc: 'Learn to use a computer from scratch - typing, files, and basic applications.' },
+    { id: 16, ytId: 'eIho2S0ZahI', title: 'How to Start a Small Business', instructor: 'StartupSchool', category: 'Basics', level: 'Beginner', durLabel: '35min', durKey: 'short', type: 'Free', rating: 4.8, enrolled: 4900, lang: 'en', tags: ['business', 'small', 'startup', 'basics'], desc: 'Simple guide to starting your own small business with little money and big ideas.' },
+    { id: 17, ytId: 'tShavGuo0_E', title: 'Simple Communication Skills', instructor: 'SpeakUp India', category: 'Basics', level: 'Beginner', durLabel: '20min', durKey: 'short', type: 'Free', rating: 4.6, enrolled: 3800, lang: 'en', tags: ['communication', 'speaking', 'basics', 'soft'], desc: 'Learn to speak clearly and confidently in everyday situations at home and work.' },
+    { id: 18, ytId: 'Ks-_Mh1QhMc', title: 'WhatsApp and Video Calls Guide', instructor: 'TechSaathi', category: 'Smartphone', level: 'Beginner', durLabel: '20min', durKey: 'short', type: 'Free', rating: 4.9, enrolled: 7100, lang: 'en', tags: ['whatsapp', 'video call', 'smartphone', 'chat'], desc: 'Learn to use WhatsApp, make video calls, and share photos with family and friends.' },
+    { id: 19, ytId: 'HQzoZfc3GwQ', title: 'Save Money Every Day', instructor: 'MoneyWise', category: 'Finance', level: 'Beginner', durLabel: '18min', durKey: 'short', type: 'Free', rating: 4.7, enrolled: 5200, lang: 'en', tags: ['savings', 'money', 'budget', 'daily'], desc: 'Easy tips to save money from your daily income and build a small emergency fund.' },
+    { id: 20, ytId: '1Rs2ND1ryYc', title: 'Basic Sewing and Tailoring', instructor: 'CraftIndia', category: 'Basics', level: 'Beginner', durLabel: '45min', durKey: 'short', type: 'Free', rating: 4.8, enrolled: 4300, lang: 'en', tags: ['sewing', 'tailoring', 'stitching', 'craft'], desc: 'Learn basic hand stitching and simple tailoring skills to make and repair clothes.' },
     // â”€â”€ Hindi courses â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    { id:21, ytId:'BVbFHfFgFcE', title:'Silai Machine Chalana Sikhe',     instructor:'Sewing Duniya',  category:'Basics',        level:'Beginner',     durLabel:'40min', durKey:'short',  type:'Free', rating:4.9, enrolled:9100, lang:'hi', tags:['silai','machine','stitching','hindi','sewing'],     desc:'Silai machine ka basic istemal Hindi mein seekhein, bilkul shuruaat se.' },
-    { id:22, ytId:'7Gy_OkFbSKQ', title:'Kapde Ki Cutting aur Silai',       instructor:'Sewing Duniya',  category:'Basics',        level:'Beginner',     durLabel:'35min', durKey:'short',  type:'Free', rating:4.8, enrolled:7600, lang:'hi', tags:['kapde','cutting','silai','tailoring','hindi'],      desc:'Ghar par kapde ki cutting aur silai karna seekhein, step by step Hindi mein.' },
-    { id:23, ytId:'8jPQjjsBbIc', title:'Paise Kaise Bachaye - Hindi',      instructor:'Yadnya Academy', category:'Finance',        level:'Beginner',     durLabel:'20min', durKey:'short',  type:'Free', rating:4.7, enrolled:6200, lang:'hi', tags:['paise','bachana','savings','finance','hindi'],      desc:'Roz ki kamaai mein se paise kaise bachayein, simple aur practical tips Hindi mein.' },
-    { id:24, ytId:'qeMFqkcPYcg', title:'Smartphone Tips aur Tricks Hindi', instructor:'Technical Guruji',category:'Smartphone',    level:'Beginner',     durLabel:'25min', durKey:'short',  type:'Free', rating:4.9, enrolled:8800, lang:'hi', tags:['smartphone','tips','mobile','hindi','android'],     desc:'Apne smartphone ko better tarike se use karna seekhein, Hindi mein.' },
-    { id:25, ytId:'7lECIsRif0U', title:'Apna Business Kaise Shuru Karein', instructor:'Josh Talks Hindi',category:'Business',      level:'Beginner',     durLabel:'30min', durKey:'short',  type:'Free', rating:4.8, enrolled:5400, lang:'hi', tags:['business','startup','kaam','hindi','entrepreneur'], desc:'Khud ka chota business shuru karne ke liye zaruri steps, Hindi mein.' },
-    { id:26, ytId:'BVbFHfFgFcE', title:'Haath ki Silai Basics - Hindi',    instructor:'Sewing Duniya',  category:'Basics',        level:'Beginner',     durLabel:'45min', durKey:'short',  type:'Free', rating:4.9, enrolled:7200, lang:'hi', tags:['haath','silai','stitching','basics','hindi'],       desc:'Haath se silai karna seekhein, basic stitches aur techniques Hindi mein.' },
-    { id:27, ytId:'4deVAL4yphE', title:'Computer Basics Hindi Mein',       instructor:'LearnVern',      category:'Basics',        level:'Beginner',     durLabel:'40min', durKey:'short',  type:'Free', rating:4.7, enrolled:5900, lang:'hi', tags:['computer','basics','hindi','typing','files'],       desc:'Computer chalana Hindi mein seekhein, typing, files aur basic applications.' },
+    { id: 21, ytId: 'BVbFHfFgFcE', title: 'Silai Machine Chalana Sikhe', instructor: 'Sewing Duniya', category: 'Basics', level: 'Beginner', durLabel: '40min', durKey: 'short', type: 'Free', rating: 4.9, enrolled: 9100, lang: 'hi', tags: ['silai', 'machine', 'stitching', 'hindi', 'sewing'], desc: 'Silai machine ka basic istemal Hindi mein seekhein, bilkul shuruaat se.' },
+    { id: 22, ytId: '7Gy_OkFbSKQ', title: 'Kapde Ki Cutting aur Silai', instructor: 'Sewing Duniya', category: 'Basics', level: 'Beginner', durLabel: '35min', durKey: 'short', type: 'Free', rating: 4.8, enrolled: 7600, lang: 'hi', tags: ['kapde', 'cutting', 'silai', 'tailoring', 'hindi'], desc: 'Ghar par kapde ki cutting aur silai karna seekhein, step by step Hindi mein.' },
+    { id: 23, ytId: '8jPQjjsBbIc', title: 'Paise Kaise Bachaye - Hindi', instructor: 'Yadnya Academy', category: 'Finance', level: 'Beginner', durLabel: '20min', durKey: 'short', type: 'Free', rating: 4.7, enrolled: 6200, lang: 'hi', tags: ['paise', 'bachana', 'savings', 'finance', 'hindi'], desc: 'Roz ki kamaai mein se paise kaise bachayein, simple aur practical tips Hindi mein.' },
+    { id: 24, ytId: 'qeMFqkcPYcg', title: 'Smartphone Tips aur Tricks Hindi', instructor: 'Technical Guruji', category: 'Smartphone', level: 'Beginner', durLabel: '25min', durKey: 'short', type: 'Free', rating: 4.9, enrolled: 8800, lang: 'hi', tags: ['smartphone', 'tips', 'mobile', 'hindi', 'android'], desc: 'Apne smartphone ko better tarike se use karna seekhein, Hindi mein.' },
+    { id: 25, ytId: '7lECIsRif0U', title: 'Apna Business Kaise Shuru Karein', instructor: 'Josh Talks Hindi', category: 'Business', level: 'Beginner', durLabel: '30min', durKey: 'short', type: 'Free', rating: 4.8, enrolled: 5400, lang: 'hi', tags: ['business', 'startup', 'kaam', 'hindi', 'entrepreneur'], desc: 'Khud ka chota business shuru karne ke liye zaruri steps, Hindi mein.' },
+    { id: 26, ytId: 'BVbFHfFgFcE', title: 'Haath ki Silai Basics - Hindi', instructor: 'Sewing Duniya', category: 'Basics', level: 'Beginner', durLabel: '45min', durKey: 'short', type: 'Free', rating: 4.9, enrolled: 7200, lang: 'hi', tags: ['haath', 'silai', 'stitching', 'basics', 'hindi'], desc: 'Haath se silai karna seekhein, basic stitches aur techniques Hindi mein.' },
+    { id: 27, ytId: '4deVAL4yphE', title: 'Computer Basics Hindi Mein', instructor: 'LearnVern', category: 'Basics', level: 'Beginner', durLabel: '40min', durKey: 'short', type: 'Free', rating: 4.7, enrolled: 5900, lang: 'hi', tags: ['computer', 'basics', 'hindi', 'typing', 'files'], desc: 'Computer chalana Hindi mein seekhein, typing, files aur basic applications.' },
 ];
 const _skillFilters = { cat: new Set(), level: new Set(), dur: new Set(), type: new Set(), lang: new Set() };
 
 function toggleSkillFilters() {
     const panel = document.getElementById('skill-filter-panel');
-    const btn   = document.getElementById('skill-filter-btn');
+    const btn = document.getElementById('skill-filter-btn');
     const hidden = panel.classList.toggle('hidden');
     btn.style.background = hidden ? '' : 'rgba(77,65,223,0.12)';
 }
@@ -2261,9 +2261,9 @@ function toggleSkillFilter(group, value) {
     document.querySelectorAll(`.skill-chip[data-sf="${group}"][data-sv="${value}"]`).forEach(btn => {
         const on = set.has(value);
         btn.style.background = on ? '#4d41df' : '';
-        btn.style.color      = on ? '#ffffff' : '';
+        btn.style.color = on ? '#ffffff' : '';
         btn.style.fontWeight = on ? '700' : '';
-        btn.style.boxShadow  = on ? '0 0 0 2px #4d41df' : '';
+        btn.style.boxShadow = on ? '0 0 0 2px #4d41df' : '';
     });
     applySkillFilters();
 }
@@ -2285,12 +2285,12 @@ function applySkillFilters() {
     if (_langDrop) { _skillFilters.lang.clear(); _skillFilters.lang.add(_langDrop); } else if (!_skillFilters.lang.size) { _skillFilters.lang.clear(); }
     const { cat, level, dur, type, lang } = _skillFilters;
     const filtered = _allCourses.filter(c => {
-        if (q && !`${c.title} ${c.instructor} ${c.category} ${(c.tags||[]).join(' ')}`.toLowerCase().includes(q)) return false;
-        if (cat.size   && !cat.has(c.category))  return false;
-        if (level.size && !level.has(c.level))   return false;
-        if (dur.size   && !dur.has(c.durKey))    return false;
-        if (type.size  && !type.has(c.type))     return false;
-        if (lang.size  && !lang.has(c.lang))     return false;
+        if (q && !`${c.title} ${c.instructor} ${c.category} ${(c.tags || []).join(' ')}`.toLowerCase().includes(q)) return false;
+        if (cat.size && !cat.has(c.category)) return false;
+        if (level.size && !level.has(c.level)) return false;
+        if (dur.size && !dur.has(c.durKey)) return false;
+        if (type.size && !type.has(c.type)) return false;
+        if (lang.size && !lang.has(c.lang)) return false;
         return true;
     });
     _renderCourseCards(filtered);
@@ -2299,16 +2299,16 @@ window.applySkillFilters = applySkillFilters;
 
 function _renderCourseCards(courses) {
     const container = document.getElementById('skill-courses-container');
-    const empty     = document.getElementById('skill-empty-state');
-    const countEl   = document.getElementById('skill-courses-count');
+    const empty = document.getElementById('skill-empty-state');
+    const countEl = document.getElementById('skill-courses-count');
     if (!container) return;
     if (courses.length === 0) {
         container.innerHTML = '';
-        if (empty)   empty.classList.remove('hidden');
+        if (empty) empty.classList.remove('hidden');
         if (countEl) countEl.textContent = '';
         return;
     }
-    if (empty)   empty.classList.add('hidden');
+    if (empty) empty.classList.add('hidden');
     if (countEl) countEl.textContent = courses.length + ' course' + (courses.length !== 1 ? 's' : '');
     _renderCourseCardsInto(container, courses);
 }
@@ -2316,13 +2316,13 @@ function _renderCourseCards(courses) {
 function openCourseVideo(courseId) {
     const course = _allCourses.find(c => c.id === courseId);
     if (!course) return;
-    const modal   = document.getElementById('course-video-modal');
-    const iframe  = document.getElementById('course-video-iframe');
+    const modal = document.getElementById('course-video-modal');
+    const iframe = document.getElementById('course-video-iframe');
     const titleEl = document.getElementById('course-video-title');
-    const metaEl  = document.getElementById('course-video-meta');
+    const metaEl = document.getElementById('course-video-meta');
     if (!modal || !iframe) return;
     if (titleEl) titleEl.textContent = course.title;
-    if (metaEl)  metaEl.textContent  = course.instructor + ' \u2022 ' + course.category + ' \u2022 ' + course.durLabel;
+    if (metaEl) metaEl.textContent = course.instructor + ' \u2022 ' + course.category + ' \u2022 ' + course.durLabel;
     iframe.src = 'https://www.youtube.com/embed/' + course.ytId + '?autoplay=1&rel=0&modestbranding=1';
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
@@ -2331,10 +2331,10 @@ function openCourseVideo(courseId) {
 window.openCourseVideo = openCourseVideo;
 
 function closeCourseVideo() {
-    const modal  = document.getElementById('course-video-modal');
+    const modal = document.getElementById('course-video-modal');
     const iframe = document.getElementById('course-video-iframe');
     if (iframe) iframe.src = '';
-    if (modal)  modal.classList.add('hidden');
+    if (modal) modal.classList.add('hidden');
     document.body.style.overflow = '';
 }
 window.closeCourseVideo = closeCourseVideo;
@@ -2375,7 +2375,7 @@ function openSkillCategory(name) {
     const courses = _allCourses.filter(c => c.category === name);
     // Update category page header
     const titleEl = document.getElementById('skill-cat-page-title');
-    const iconEl  = document.getElementById('skill-cat-page-icon');
+    const iconEl = document.getElementById('skill-cat-page-icon');
     const countEl = document.getElementById('skill-cat-page-count');
     if (titleEl) titleEl.textContent = name;
     if (iconEl && cat) {
@@ -2403,11 +2403,11 @@ function filterBySkillCategory(name) {
     document.querySelectorAll('.skill-chip[data-sf="cat"]').forEach(b => {
         const on = b.getAttribute('data-sv') === name;
         b.style.background = on ? 'rgba(77,65,223,0.15)' : '';
-        b.style.color      = on ? '#4d41df' : '';
+        b.style.color = on ? '#4d41df' : '';
         b.style.fontWeight = on ? '700' : '';
     });
     applySkillFilters();
-    document.getElementById('skill-courses-container')?.scrollIntoView({ behavior:'smooth', block:'start' });
+    document.getElementById('skill-courses-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 window.filterBySkillCategory = filterBySkillCategory;
 
@@ -2431,11 +2431,11 @@ function openAllCategories() {
     }
     // Show all-categories grid on the skill-categories screen (not a category detail)
     const titleEl = document.getElementById('skill-cat-page-title');
-    const iconEl  = document.getElementById('skill-cat-page-icon');
+    const iconEl = document.getElementById('skill-cat-page-icon');
     const countEl = document.getElementById('skill-cat-page-count');
     const container = document.getElementById('skill-cat-courses-container');
     if (titleEl) titleEl.textContent = 'All Categories';
-    if (iconEl)  iconEl.style.display = 'none';
+    if (iconEl) iconEl.style.display = 'none';
     if (countEl) countEl.textContent = '';
     if (container) container.innerHTML = '';
     document.getElementById('all-categories-grid').style.display = 'grid';
@@ -2446,35 +2446,35 @@ window.openAllCategories = openAllCategories;
 
 // Shared helper: render course cards into any container element
 function _renderCourseCardsInto(container, courses) {
-    const levelColor = l => l === 'Beginner'     ? 'background:rgba(45,106,79,0.10);color:#276749'
-                          : l === 'Intermediate' ? 'background:rgba(77,65,223,0.10);color:#4d41df'
-                          :                        'background:rgba(135,80,65,0.10);color:#875041';
-    const typeColor  = t => t === 'Free' ? 'background:rgba(45,106,79,0.10);color:#276749'
-                          :                'background:rgba(92,81,160,0.10);color:#5c51a0';
+    const levelColor = l => l === 'Beginner' ? 'background:rgba(45,106,79,0.10);color:#276749'
+        : l === 'Intermediate' ? 'background:rgba(77,65,223,0.10);color:#4d41df'
+            : 'background:rgba(135,80,65,0.10);color:#875041';
+    const typeColor = t => t === 'Free' ? 'background:rgba(45,106,79,0.10);color:#276749'
+        : 'background:rgba(92,81,160,0.10);color:#5c51a0';
     const stars = r => {
         const full = Math.floor(r);
-        return Array.from({length:5}, (_,i) =>
+        return Array.from({ length: 5 }, (_, i) =>
             `<span class="material-symbols-outlined" style="font-size:13px;color:${i < full ? '#f59e0b' : '#d1d5db'};font-variation-settings:'FILL' 1">star</span>`
         ).join('');
     };
     const _dark = document.documentElement.classList.contains('dark-theme');
-    const cardBg    = _dark ? '#1c1b2e' : '#fff';
-    const cardBorder= _dark ? '#2a2840' : '#eae6f3';
-    const titleCol  = _dark ? '#e8e6f4' : '#1b1b24';
-    const subCol    = _dark ? '#9e9bb8' : '#777587';
-    const descCol   = _dark ? '#c8c6dc' : '#464555';
-    const shadowNorm= _dark ? '0 2px 12px -4px rgba(0,0,0,0.5)' : '0 2px 12px -4px rgba(77,65,223,0.08)';
+    const cardBg = _dark ? '#1c1b2e' : '#fff';
+    const cardBorder = _dark ? '#2a2840' : '#eae6f3';
+    const titleCol = _dark ? '#e8e6f4' : '#1b1b24';
+    const subCol = _dark ? '#9e9bb8' : '#777587';
+    const descCol = _dark ? '#c8c6dc' : '#464555';
+    const shadowNorm = _dark ? '0 2px 12px -4px rgba(0,0,0,0.5)' : '0 2px 12px -4px rgba(77,65,223,0.08)';
     const shadowHov = _dark ? '0 6px 20px -4px rgba(0,0,0,0.7)' : '0 6px 20px -4px rgba(77,65,223,0.14)';
-    const playBg    = _dark ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.95)';
-    const playCol   = _dark ? '#c4c0ff' : '#4d41df';
+    const playBg = _dark ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.95)';
+    const playCol = _dark ? '#c4c0ff' : '#4d41df';
     const starEmpty = _dark ? '#4a4860' : '#d1d5db';
 
     container.innerHTML = courses.map(c => {
-        const catMeta = _skillCategories.find(x => x.name === c.category) || { bg:'rgba(77,65,223,0.12)', color:'#4d41df', icon:'school' };
+        const catMeta = _skillCategories.find(x => x.name === c.category) || { bg: 'rgba(77,65,223,0.12)', color: '#4d41df', icon: 'school' };
         const enrolled = JSON.parse(localStorage.getItem(_enrolledKey()) || '[]').includes(c.id);
         const thumbHq = 'https://img.youtube.com/vi/' + c.ytId + '/hqdefault.jpg';
         const thumbMq = 'https://img.youtube.com/vi/' + c.ytId + '/mqdefault.jpg';
-        const starsHtml = Array.from({length:5}, (_,i) =>
+        const starsHtml = Array.from({ length: 5 }, (_, i) =>
             `<span class="material-symbols-outlined" style="font-size:13px;color:${i < Math.floor(c.rating) ? '#f59e0b' : starEmpty};font-variation-settings:'FILL' 1">star</span>`
         ).join('');
         return `
@@ -2542,34 +2542,34 @@ window.initSkillsPage = initSkillsPage;
 // ============================================================
 
 const _marketCategories = [
-    { name:'Handicrafts', icon:'category',        color:'#4d41df', bg:'rgba(77,65,223,0.12)'   },
-    { name:'Clothing',    icon:'checkroom',        color:'#875041', bg:'rgba(135,80,65,0.12)'   },
-    { name:'Jewellery',   icon:'diamond',          color:'#5c51a0', bg:'rgba(92,81,160,0.12)'   },
-    { name:'Food',        icon:'restaurant',       color:'#276749', bg:'rgba(45,106,79,0.12)'   },
-    { name:'Art',         icon:'palette',          color:'#675df9', bg:'rgba(103,93,249,0.12)'  },
-    { name:'Beauty',      icon:'spa',              color:'#c77dff', bg:'rgba(199,125,255,0.12)' },
-    { name:'Home Decor',  icon:'chair',            color:'#875041', bg:'rgba(135,80,65,0.10)'   },
-    { name:'Stationery',  icon:'edit_note',        color:'#4d41df', bg:'rgba(77,65,223,0.10)'   },
+    { name: 'Handicrafts', icon: 'category', color: '#4d41df', bg: 'rgba(77,65,223,0.12)' },
+    { name: 'Clothing', icon: 'checkroom', color: '#875041', bg: 'rgba(135,80,65,0.12)' },
+    { name: 'Jewellery', icon: 'diamond', color: '#5c51a0', bg: 'rgba(92,81,160,0.12)' },
+    { name: 'Food', icon: 'restaurant', color: '#276749', bg: 'rgba(45,106,79,0.12)' },
+    { name: 'Art', icon: 'palette', color: '#675df9', bg: 'rgba(103,93,249,0.12)' },
+    { name: 'Beauty', icon: 'spa', color: '#c77dff', bg: 'rgba(199,125,255,0.12)' },
+    { name: 'Home Decor', icon: 'chair', color: '#875041', bg: 'rgba(135,80,65,0.10)' },
+    { name: 'Stationery', icon: 'edit_note', color: '#4d41df', bg: 'rgba(77,65,223,0.10)' },
 ];
 
 const _marketProducts = [
-    { id:'m1', image:'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80', name:'Hand-embroidered Dupatta',  seller:'Meena Crafts',   sellerType:'user',    category:'Clothing',    price:850,  stock:12, rating:4.8, desc:'Beautifully hand-embroidered dupatta with traditional motifs.', lang:'en' },
-    { id:'m2', image:'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80', name:'Terracotta Earrings Set',   seller:'Clay & Co.',     sellerType:'company', category:'Jewellery',   price:320,  stock:30, rating:4.7, desc:'Lightweight terracotta earrings, eco-friendly and unique.', lang:'en' },
-    { id:'m3', image:'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&q=80', name:'Organic Turmeric Powder',   seller:'Spice Garden',   sellerType:'user',    category:'Food',        price:180,  stock:50, rating:4.9, desc:'100% organic turmeric sourced directly from farms.', lang:'en' },
-    { id:'m4', image:'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80', name:'Madhubani Art Print',        seller:'ArtByPriya',     sellerType:'user',    category:'Art',         price:1200, stock:5,  rating:4.6, desc:'Original Madhubani art print on handmade paper.', lang:'en' },
-    { id:'m5', image:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80', name:'Handwoven Jute Bag',         seller:'GreenWeave',     sellerType:'company', category:'Handicrafts', price:450,  stock:20, rating:4.5, desc:'Eco-friendly jute bag, perfect for daily use.', lang:'en' },
-    { id:'m6', image:'https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=400&q=80', name:'Rose & Sandalwood Soap',     seller:'NaturalGlow',    sellerType:'user',    category:'Beauty',      price:150,  stock:40, rating:4.8, desc:'Handmade cold-process soap with natural ingredients.', lang:'en' },
-    { id:'m7', image:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', name:'MacramÃƒÆ’Ã‚Â© Wall Hanging',       seller:'KnotArt Studio', sellerType:'company', category:'Home Decor',  price:2200, stock:8,  rating:4.7, desc:'Handcrafted macramÃƒÆ’Ã‚Â© wall hanging, boho style.', lang:'en' },
-    { id:'m8', image:'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80', name:'Handmade Greeting Cards',    seller:'PaperLove',      sellerType:'user',    category:'Stationery',  price:80,   stock:100,rating:4.4, desc:'Set of 5 handmade greeting cards for all occasions.', lang:'en' },
-    { id:'m9', image:'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400&q=80', name:'Silk Thread Bangles',        seller:'Meena Crafts',   sellerType:'user',    category:'Jewellery',   price:250,  stock:25, rating:4.6, desc:'Colourful silk thread bangles, set of 6.', lang:'en' },
-    { id:'m10',name:'Handloom Cotton Saree',      seller:'WeaversHub',     sellerType:'company', category:'Clothing',    price:3500, stock:15, rating:4.9, desc:'Pure handloom cotton saree with natural dyes.', lang:'en' },
+    { id: 'm1', image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80', name: 'Hand-embroidered Dupatta', seller: 'Meena Crafts', sellerType: 'user', category: 'Clothing', price: 850, stock: 12, rating: 4.8, desc: 'Beautifully hand-embroidered dupatta with traditional motifs.', lang: 'en' },
+    { id: 'm2', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&q=80', name: 'Terracotta Earrings Set', seller: 'Clay & Co.', sellerType: 'company', category: 'Jewellery', price: 320, stock: 30, rating: 4.7, desc: 'Lightweight terracotta earrings, eco-friendly and unique.', lang: 'en' },
+    { id: 'm3', image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&q=80', name: 'Organic Turmeric Powder', seller: 'Spice Garden', sellerType: 'user', category: 'Food', price: 180, stock: 50, rating: 4.9, desc: '100% organic turmeric sourced directly from farms.', lang: 'en' },
+    { id: 'm4', image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&q=80', name: 'Madhubani Art Print', seller: 'ArtByPriya', sellerType: 'user', category: 'Art', price: 1200, stock: 5, rating: 4.6, desc: 'Original Madhubani art print on handmade paper.', lang: 'en' },
+    { id: 'm5', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80', name: 'Handwoven Jute Bag', seller: 'GreenWeave', sellerType: 'company', category: 'Handicrafts', price: 450, stock: 20, rating: 4.5, desc: 'Eco-friendly jute bag, perfect for daily use.', lang: 'en' },
+    { id: 'm6', image: 'https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=400&q=80', name: 'Rose & Sandalwood Soap', seller: 'NaturalGlow', sellerType: 'user', category: 'Beauty', price: 150, stock: 40, rating: 4.8, desc: 'Handmade cold-process soap with natural ingredients.', lang: 'en' },
+    { id: 'm7', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', name: 'MacramÃƒÆ’Ã‚Â© Wall Hanging', seller: 'KnotArt Studio', sellerType: 'company', category: 'Home Decor', price: 2200, stock: 8, rating: 4.7, desc: 'Handcrafted macramÃƒÆ’Ã‚Â© wall hanging, boho style.', lang: 'en' },
+    { id: 'm8', image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=400&q=80', name: 'Handmade Greeting Cards', seller: 'PaperLove', sellerType: 'user', category: 'Stationery', price: 80, stock: 100, rating: 4.4, desc: 'Set of 5 handmade greeting cards for all occasions.', lang: 'en' },
+    { id: 'm9', image: 'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400&q=80', name: 'Silk Thread Bangles', seller: 'Meena Crafts', sellerType: 'user', category: 'Jewellery', price: 250, stock: 25, rating: 4.6, desc: 'Colourful silk thread bangles, set of 6.', lang: 'en' },
+    { id: 'm10', name: 'Handloom Cotton Saree', seller: 'WeaversHub', sellerType: 'company', category: 'Clothing', price: 3500, stock: 15, rating: 4.9, desc: 'Pure handloom cotton saree with natural dyes.', lang: 'en' },
 ];
 
 const _marketFilters = { cat: new Set(), price: new Set(), seller: new Set(), stock: new Set() };
 
 function toggleMarketFilters() {
     const panel = document.getElementById('market-filter-panel');
-    const btn   = document.getElementById('market-filter-btn');
+    const btn = document.getElementById('market-filter-btn');
     const hidden = panel.classList.toggle('hidden');
     btn.style.background = hidden ? '' : 'rgba(77,65,223,0.12)';
 }
@@ -2581,9 +2581,9 @@ function toggleMarketFilter(group, value) {
     document.querySelectorAll(`.market-chip[data-mf="${group}"][data-mv="${value}"]`).forEach(btn => {
         const on = set.has(value);
         btn.style.background = on ? '#4d41df' : '';
-        btn.style.color      = on ? '#ffffff' : '';
+        btn.style.color = on ? '#ffffff' : '';
         btn.style.fontWeight = on ? '700' : '';
-        btn.style.boxShadow  = on ? '0 0 0 2px #4d41df' : '';
+        btn.style.boxShadow = on ? '0 0 0 2px #4d41df' : '';
     });
     applyMarketFilters();
 }
@@ -2600,9 +2600,9 @@ window.clearMarketFilters = clearMarketFilters;
 
 function _priceMatch(p, priceSet) {
     if (priceSet.size === 0) return true;
-    if (priceSet.has('under500')  && p.price < 500)                    return true;
-    if (priceSet.has('500to2k')   && p.price >= 500 && p.price <= 2000) return true;
-    if (priceSet.has('above2k')   && p.price > 2000)                   return true;
+    if (priceSet.has('under500') && p.price < 500) return true;
+    if (priceSet.has('500to2k') && p.price >= 500 && p.price <= 2000) return true;
+    if (priceSet.has('above2k') && p.price > 2000) return true;
     return false;
 }
 
@@ -2620,12 +2620,12 @@ function _getFilteredProducts() {
 
     return all.filter(p => {
         if (q && !`${p.name} ${p.seller} ${p.category}`.toLowerCase().includes(q)) return false;
-        if (cat.size    && !cat.has(p.category))                                    return false;
-        if (!_priceMatch(p, price))                                                 return false;
-        if (seller.size && !seller.has(p.sellerType))                               return false;
+        if (cat.size && !cat.has(p.category)) return false;
+        if (!_priceMatch(p, price)) return false;
+        if (seller.size && !seller.has(p.sellerType)) return false;
         if (stock.size) {
-            if (stock.has('instock')    && p.stock <= 0) return false;
-            if (stock.has('outofstock') && p.stock > 0)  return false;
+            if (stock.has('instock') && p.stock <= 0) return false;
+            if (stock.has('outofstock') && p.stock > 0) return false;
         }
         return true;
     });
@@ -2638,17 +2638,17 @@ function applyMarketFilters() {
 window.applyMarketFilters = applyMarketFilters;
 
 function _productCard(p, horizontal) {
-    const _dark   = document.documentElement.classList.contains('dark-theme');
-    const cardBg  = _dark ? '#1c1b2e' : '#fff';
-    const border  = _dark ? '#2a2840' : '#eae6f3';
-    const titleC  = _dark ? '#e8e6f4' : '#1b1b24';
-    const subC    = _dark ? '#9e9bb8' : '#777587';
+    const _dark = document.documentElement.classList.contains('dark-theme');
+    const cardBg = _dark ? '#1c1b2e' : '#fff';
+    const border = _dark ? '#2a2840' : '#eae6f3';
+    const titleC = _dark ? '#e8e6f4' : '#1b1b24';
+    const subC = _dark ? '#9e9bb8' : '#777587';
     const shadowN = _dark ? '0 2px 10px -4px rgba(0,0,0,0.5)' : '0 2px 10px -4px rgba(77,65,223,0.10)';
     const shadowH = _dark ? '0 6px 18px -4px rgba(0,0,0,0.7)' : '0 6px 18px -4px rgba(77,65,223,0.18)';
     const starEmpty = _dark ? '#4a4860' : '#d1d5db';
-    const catMeta = _marketCategories.find(c => c.name === p.category) || { color:'#4d41df', bg:'rgba(77,65,223,0.10)', icon:'category' };
+    const catMeta = _marketCategories.find(c => c.name === p.category) || { color: '#4d41df', bg: 'rgba(77,65,223,0.10)', icon: 'category' };
     const iconColor = _dark ? (catMeta.color === '#4d41df' ? '#8b83ff' : catMeta.color) : catMeta.color;
-    const stars = r => r > 0 ? Array.from({length:5}, (_,i) =>
+    const stars = r => r > 0 ? Array.from({ length: 5 }, (_, i) =>
         `<span class="material-symbols-outlined" style="font-size:11px;color:${i < Math.floor(r) ? '#f59e0b' : starEmpty};font-variation-settings:'FILL' 1">star</span>`
     ).join('') : '';
     const imgContent = p.image
@@ -2702,24 +2702,24 @@ function _renderMarketPopular() {
 
 function _renderMarketAllProducts(products) {
     const container = document.getElementById('market-all-products');
-    const empty     = document.getElementById('market-empty-state');
-    const countEl   = document.getElementById('market-products-count');
+    const empty = document.getElementById('market-empty-state');
+    const countEl = document.getElementById('market-products-count');
     if (!container) return;
 
     if (products.length === 0) {
         container.innerHTML = '';
-        if (empty)   empty.classList.remove('hidden');
+        if (empty) empty.classList.remove('hidden');
         if (countEl) countEl.textContent = '';
         return;
     }
-    if (empty)   empty.classList.add('hidden');
+    if (empty) empty.classList.add('hidden');
     if (countEl) countEl.textContent = `${products.length} product${products.length !== 1 ? 's' : ''}`;
     container.innerHTML = products.map(p => _productCard(p, false)).join('');
 }
 
 function showAllMarketProducts() {
     clearMarketFilters();
-    document.getElementById('market-all-products')?.scrollIntoView({ behavior:'smooth', block:'start' });
+    document.getElementById('market-all-products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 window.showAllMarketProducts = showAllMarketProducts;
 
@@ -2755,11 +2755,11 @@ function filterByMarketCategory(name) {
     document.querySelectorAll('.market-chip[data-mf="cat"]').forEach(b => {
         const on = b.getAttribute('data-mv') === name;
         b.style.background = on ? 'rgba(77,65,223,0.15)' : '';
-        b.style.color      = on ? '#4d41df' : '';
+        b.style.color = on ? '#4d41df' : '';
         b.style.fontWeight = on ? '700' : '';
     });
     applyMarketFilters();
-    document.getElementById('market-all-products')?.scrollIntoView({ behavior:'smooth', block:'start' });
+    document.getElementById('market-all-products')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 window.filterByMarketCategory = filterByMarketCategory;
 
@@ -2857,11 +2857,11 @@ window.clearCart = clearCart;
 
 function renderCart() {
     const cart = _getCart();
-    const listEl   = document.getElementById('cart-items-list');
-    const emptyEl  = document.getElementById('cart-empty');
-    const barEl    = document.getElementById('cart-checkout-bar');
-    const totalEl  = document.getElementById('cart-total');
-    const countEl  = document.getElementById('cart-item-count-label');
+    const listEl = document.getElementById('cart-items-list');
+    const emptyEl = document.getElementById('cart-empty');
+    const barEl = document.getElementById('cart-checkout-bar');
+    const totalEl = document.getElementById('cart-total');
+    const countEl = document.getElementById('cart-item-count-label');
     if (!listEl) return;
 
     const itemCount = cart.reduce((s, i) => s + i.qty, 0);
@@ -2870,30 +2870,30 @@ function renderCart() {
     if (cart.length === 0) {
         listEl.innerHTML = '';
         if (emptyEl) emptyEl.classList.remove('hidden');
-        if (barEl)   barEl.classList.add('hidden');
+        if (barEl) barEl.classList.add('hidden');
         return;
     }
     if (emptyEl) emptyEl.classList.add('hidden');
-    if (barEl)   barEl.classList.remove('hidden');
+    if (barEl) barEl.classList.remove('hidden');
 
     const grandTotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
     if (totalEl) totalEl.textContent = '\u20b9' + grandTotal.toLocaleString('en-IN');
 
-    const _dark  = document.documentElement.classList.contains('dark-theme');
+    const _dark = document.documentElement.classList.contains('dark-theme');
     const cardBg = _dark ? '#1c1b2e' : '#fff';
     const border = _dark ? '#2a2840' : '#eae6f3';
     const titleC = _dark ? '#e8e6f4' : '#1b1b24';
-    const subC   = _dark ? '#9e9bb8' : '#777587';
-    const qtyC   = _dark ? '#e8e6f4' : '#1b1b24';
-    const btnBg  = _dark ? 'rgba(100,90,255,0.15)' : '#f6f2ff';
+    const subC = _dark ? '#9e9bb8' : '#777587';
+    const qtyC = _dark ? '#e8e6f4' : '#1b1b24';
+    const btnBg = _dark ? 'rgba(100,90,255,0.15)' : '#f6f2ff';
     const btnBdr = _dark ? '#3a3850' : '#eae6f3';
 
     listEl.innerHTML = cart.map(item => `
-        <div style="background:${cardBg};border-radius:18px;padding:14px;border:1px solid ${border};box-shadow:0 2px 10px -4px rgba(0,0,0,${_dark?'0.4':'0.08'});display:flex;align-items:center;gap:12px">
+        <div style="background:${cardBg};border-radius:18px;padding:14px;border:1px solid ${border};box-shadow:0 2px 10px -4px rgba(0,0,0,${_dark ? '0.4' : '0.08'});display:flex;align-items:center;gap:12px">
             <div style="width:72px;height:72px;border-radius:14px;overflow:hidden;flex-shrink:0;background:rgba(77,65,223,0.10);display:flex;align-items:center;justify-content:center">
                 ${item.image
-                    ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="material-symbols-outlined" style="display:none;font-size:28px;color:#8b83ff;font-variation-settings:'FILL' 1">image</span>`
-                    : `<span class="material-symbols-outlined" style="font-size:28px;color:#8b83ff;font-variation-settings:'FILL' 1">image</span>`}
+            ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="material-symbols-outlined" style="display:none;font-size:28px;color:#8b83ff;font-variation-settings:'FILL' 1">image</span>`
+            : `<span class="material-symbols-outlined" style="font-size:28px;color:#8b83ff;font-variation-settings:'FILL' 1">image</span>`}
             </div>
             <div style="flex:1;min-width:0">
                 <p style="font-size:13px;font-weight:700;color:${titleC};line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${item.name}</p>
@@ -2903,7 +2903,7 @@ function renderCart() {
                     <button onclick="updateCartQty('${item.id}',-1)" style="width:28px;height:28px;border-radius:8px;border:1px solid ${btnBdr};background:${btnBg};color:#8b83ff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center">\u2212</button>
                     <span style="font-size:14px;font-weight:700;color:${qtyC};min-width:20px;text-align:center">${item.qty}</span>
                     <button onclick="updateCartQty('${item.id}',1)" style="width:28px;height:28px;border-radius:8px;border:1px solid ${btnBdr};background:${btnBg};color:#8b83ff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center">+</button>
-                    <button onclick="removeFromCart('${item.id}')" style="margin-left:auto;width:28px;height:28px;border-radius:8px;border:none;background:rgba(186,26,26,0.12);color:${_dark?'#ff8a8a':'#ba1a1a'};cursor:pointer;display:flex;align-items:center;justify-content:center">
+                    <button onclick="removeFromCart('${item.id}')" style="margin-left:auto;width:28px;height:28px;border-radius:8px;border:none;background:rgba(186,26,26,0.12);color:${_dark ? '#ff8a8a' : '#ba1a1a'};cursor:pointer;display:flex;align-items:center;justify-content:center">
                         <span class="material-symbols-outlined" style="font-size:16px">delete</span>
                     </button>
                 </div>
@@ -2929,16 +2929,16 @@ window.proceedToCheckout = proceedToCheckout;
 
 function initMyShop() {
     const products = getShopProducts();
-    const listEl   = document.getElementById('myshop-products-list');
-    const emptyEl  = document.getElementById('myshop-empty');
-    const totalEl  = document.getElementById('myshop-total-count');
-    const instockEl= document.getElementById('myshop-instock-count');
-    const soldEl   = document.getElementById('myshop-sold-count');
+    const listEl = document.getElementById('myshop-products-list');
+    const emptyEl = document.getElementById('myshop-empty');
+    const totalEl = document.getElementById('myshop-total-count');
+    const instockEl = document.getElementById('myshop-instock-count');
+    const soldEl = document.getElementById('myshop-sold-count');
     if (!listEl) return;
 
-    if (totalEl)   totalEl.textContent   = products.length;
+    if (totalEl) totalEl.textContent = products.length;
     if (instockEl) instockEl.textContent = products.filter(p => Number(p.stock) > 0).length;
-    if (soldEl)    soldEl.textContent    = products.filter(p => Number(p.stock) === 0).length;
+    if (soldEl) soldEl.textContent = products.filter(p => Number(p.stock) === 0).length;
 
     if (products.length === 0) {
         listEl.innerHTML = '';
@@ -2949,23 +2949,23 @@ function initMyShop() {
 
     listEl.innerHTML = products.slice().reverse().map(p => {
         const _dark = document.documentElement.classList.contains('dark-theme');
-        const cardBg  = _dark ? '#1c1b2e' : '#fff';
-        const border  = _dark ? '#2a2840' : '#eae6f3';
-        const titleC  = _dark ? '#e8e6f4' : '#1b1b24';
-        const subC    = _dark ? '#9e9bb8' : '#777587';
-        const priceC  = _dark ? '#8b83ff' : '#4d41df';
-        const iconC   = _dark ? '#8b83ff' : '#4d41df';
+        const cardBg = _dark ? '#1c1b2e' : '#fff';
+        const border = _dark ? '#2a2840' : '#eae6f3';
+        const titleC = _dark ? '#e8e6f4' : '#1b1b24';
+        const subC = _dark ? '#9e9bb8' : '#777587';
+        const priceC = _dark ? '#8b83ff' : '#4d41df';
+        const iconC = _dark ? '#8b83ff' : '#4d41df';
         const inStock = Number(p.stock) > 0;
         const statusStyle = inStock
             ? 'background:rgba(45,106,79,0.10);color:#276749'
             : 'background:rgba(186,26,26,0.08);color:#ba1a1a';
         const statusLabel = inStock ? 'Available' : 'Sold Out';
         return `
-        <div style="background:${cardBg};border-radius:18px;padding:14px;border:1px solid ${border};box-shadow:0 2px 10px -4px rgba(0,0,0,${_dark?'0.4':'0.08'});display:flex;align-items:center;gap:12px">
+        <div style="background:${cardBg};border-radius:18px;padding:14px;border:1px solid ${border};box-shadow:0 2px 10px -4px rgba(0,0,0,${_dark ? '0.4' : '0.08'});display:flex;align-items:center;gap:12px">
             <div style="width:72px;height:72px;border-radius:14px;overflow:hidden;flex-shrink:0;background:rgba(77,65,223,0.10);display:flex;align-items:center;justify-content:center">
                 ${p.image
-                    ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="material-symbols-outlined" style="display:none;font-size:28px;color:${iconC};font-variation-settings:'FILL' 1">image</span>`
-                    : `<span class="material-symbols-outlined" style="font-size:28px;color:${iconC};font-variation-settings:'FILL' 1">image</span>`}
+                ? `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="material-symbols-outlined" style="display:none;font-size:28px;color:${iconC};font-variation-settings:'FILL' 1">image</span>`
+                : `<span class="material-symbols-outlined" style="font-size:28px;color:${iconC};font-variation-settings:'FILL' 1">image</span>`}
             </div>
             <div style="flex:1;min-width:0">
                 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
@@ -2978,8 +2978,8 @@ function initMyShop() {
                     <button onclick="openPostProduct(${p.id})" style="height:28px;padding:0 12px;border-radius:8px;border:1px solid rgba(77,65,223,0.25);background:rgba(77,65,223,0.08);color:${iconC};font-size:11px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:4px">
                         <span class="material-symbols-outlined" style="font-size:13px;color:${iconC}">edit</span>Edit
                     </button>
-                    <button onclick="deleteMyShopProduct(${p.id})" style="height:28px;padding:0 12px;border-radius:8px;border:1px solid rgba(186,26,26,0.25);background:rgba(186,26,26,0.08);color:${_dark?'#ff8a8a':'#ba1a1a'};font-size:11px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:4px">
-                        <span class="material-symbols-outlined" style="font-size:13px;color:${_dark?'#ff8a8a':'#ba1a1a'}">delete</span>Delete
+                    <button onclick="deleteMyShopProduct(${p.id})" style="height:28px;padding:0 12px;border-radius:8px;border:1px solid rgba(186,26,26,0.25);background:rgba(186,26,26,0.08);color:${_dark ? '#ff8a8a' : '#ba1a1a'};font-size:11px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;gap:4px">
+                        <span class="material-symbols-outlined" style="font-size:13px;color:${_dark ? '#ff8a8a' : '#ba1a1a'}">delete</span>Delete
                     </button>
                 </div>
             </div>
@@ -3060,18 +3060,18 @@ function _checkDailyLogin() {
 
 // Badge definitions
 const _allBadges = [
-    { id: 'first_login',    icon: 'waving_hand',        color: '#4d41df', bg: 'rgba(77,65,223,0.12)',   name: 'Welcome!',          desc: 'Joined Tarini',                  condition: r => true },
-    { id: 'profile_star',   icon: 'person_check',       color: '#276749', bg: 'rgba(45,106,79,0.12)',   name: 'Profile Star',  desc: 'Completed your profile',         condition: r => computeProfileProgress() >= 100 },
-    { id: 'first_apply',    icon: 'send',               color: '#875041', bg: 'rgba(135,80,65,0.12)',   name: 'First Apply',       desc: 'Applied to your first job',      condition: () => (JSON.parse(localStorage.getItem(_appsKey())||'[]')).length >= 1 },
-    { id: 'rising_talent',  icon: 'trending_up',        color: '#675df9', bg: 'rgba(103,93,249,0.12)',  name: 'Rising Talent',     desc: 'Applied to 3+ jobs',             condition: () => (JSON.parse(localStorage.getItem(_appsKey())||'[]')).length >= 3 },
-    { id: 'skill_learner',  icon: 'school',             color: '#5c51a0', bg: 'rgba(92,81,160,0.12)',   name: 'Skill Learner',     desc: 'Enrolled in a course',           condition: r => r.activity.some(a => a.reason.startsWith('Enrolled in')) },
-    { id: 'seller_debut',   icon: 'storefront',         color: '#c77dff', bg: 'rgba(199,125,255,0.12)', name: 'Seller Debut',      desc: 'Listed your first product',      condition: () => getShopProducts().length >= 1 },
-    { id: 'top_seller',     icon: 'workspace_premium',  color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  name: 'Top Seller',        desc: 'Listed 5+ products',             condition: () => getShopProducts().length >= 5 },
-    { id: 'streak_3',       icon: 'local_fire_department', color: '#e63946', bg: 'rgba(230,57,70,0.10)', name: 'On Fire!',         desc: '3-day login streak',             condition: r => (r.streak || 0) >= 3 },
-    { id: 'streak_7',       icon: 'bolt',               color: '#f59e0b', bg: 'rgba(245,158,11,0.12)',  name: 'Consistent User',   desc: '7-day login streak',             condition: r => (r.streak || 0) >= 7 },
-    { id: 'coin_100',       icon: 'monetization_on',    color: '#276749', bg: 'rgba(45,106,79,0.12)',   name: 'Coin Collector',    desc: 'Earned 100+ Tarini Coins',       condition: r => r.coins >= 100 },
-    { id: 'coin_500',       icon: 'diamond',            color: '#4d41df', bg: 'rgba(77,65,223,0.12)',   name: 'Coin Champion',     desc: 'Earned 500+ Tarini Coins',       condition: r => r.coins >= 500 },
-    { id: 'design_pro',     icon: 'palette',            color: '#5c51a0', bg: 'rgba(92,81,160,0.12)',   name: 'Design Pro',        desc: 'Enrolled in a Design course',    condition: r => r.activity.some(a => a.reason.toLowerCase().includes('figma') || a.reason.toLowerCase().includes('brand')) },
+    { id: 'first_login', icon: 'waving_hand', color: '#4d41df', bg: 'rgba(77,65,223,0.12)', name: 'Welcome!', desc: 'Joined Tarini', condition: r => true },
+    { id: 'profile_star', icon: 'person_check', color: '#276749', bg: 'rgba(45,106,79,0.12)', name: 'Profile Star', desc: 'Completed your profile', condition: r => computeProfileProgress() >= 100 },
+    { id: 'first_apply', icon: 'send', color: '#875041', bg: 'rgba(135,80,65,0.12)', name: 'First Apply', desc: 'Applied to your first job', condition: () => (JSON.parse(localStorage.getItem(_appsKey()) || '[]')).length >= 1 },
+    { id: 'rising_talent', icon: 'trending_up', color: '#675df9', bg: 'rgba(103,93,249,0.12)', name: 'Rising Talent', desc: 'Applied to 3+ jobs', condition: () => (JSON.parse(localStorage.getItem(_appsKey()) || '[]')).length >= 3 },
+    { id: 'skill_learner', icon: 'school', color: '#5c51a0', bg: 'rgba(92,81,160,0.12)', name: 'Skill Learner', desc: 'Enrolled in a course', condition: r => r.activity.some(a => a.reason.startsWith('Enrolled in')) },
+    { id: 'seller_debut', icon: 'storefront', color: '#c77dff', bg: 'rgba(199,125,255,0.12)', name: 'Seller Debut', desc: 'Listed your first product', condition: () => getShopProducts().length >= 1 },
+    { id: 'top_seller', icon: 'workspace_premium', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', name: 'Top Seller', desc: 'Listed 5+ products', condition: () => getShopProducts().length >= 5 },
+    { id: 'streak_3', icon: 'local_fire_department', color: '#e63946', bg: 'rgba(230,57,70,0.10)', name: 'On Fire!', desc: '3-day login streak', condition: r => (r.streak || 0) >= 3 },
+    { id: 'streak_7', icon: 'bolt', color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', name: 'Consistent User', desc: '7-day login streak', condition: r => (r.streak || 0) >= 7 },
+    { id: 'coin_100', icon: 'monetization_on', color: '#276749', bg: 'rgba(45,106,79,0.12)', name: 'Coin Collector', desc: 'Earned 100+ Tarini Coins', condition: r => r.coins >= 100 },
+    { id: 'coin_500', icon: 'diamond', color: '#4d41df', bg: 'rgba(77,65,223,0.12)', name: 'Coin Champion', desc: 'Earned 500+ Tarini Coins', condition: r => r.coins >= 500 },
+    { id: 'design_pro', icon: 'palette', color: '#5c51a0', bg: 'rgba(92,81,160,0.12)', name: 'Design Pro', desc: 'Enrolled in a Design course', condition: r => r.activity.some(a => a.reason.toLowerCase().includes('figma') || a.reason.toLowerCase().includes('brand')) },
 ];
 
 function checkAndAwardBadges() {
@@ -3104,11 +3104,11 @@ function _getDailyTasks() {
     const todayApps = apps.filter(a => new Date(a.appliedAt).toDateString() === today);
     const profilePct = computeProfileProgress();
     return [
-        { id: 'daily_login',    icon: 'login',          color: '#4d41df', coins: 10, label: 'Daily Login',          desc: 'Open the app today',              done: r.lastLogin === today },
-        { id: 'complete_profile', icon: 'person_check', color: '#276749', coins: 50, label: 'Complete Profile',     desc: 'Fill all profile fields',         done: profilePct >= 100 },
-        { id: 'apply_job',      icon: 'send',           color: '#875041', coins: 20, label: 'Apply to a Job',       desc: 'Submit a job application',        done: todayApps.length >= 1 },
-        { id: 'enroll_course',  icon: 'school',         color: '#5c51a0', coins: 15, label: 'Enroll in a Course',   desc: 'Join any Skill Hub course',       done: r.activity.some(a => a.reason.startsWith('Enrolled in') && new Date(a.time).toDateString() === today) },
-        { id: 'list_product',   icon: 'storefront',     color: '#c77dff', coins: 25, label: 'List a Product',       desc: 'Add a product to your shop',      done: r.activity.some(a => a.reason === 'Listed a new product' && new Date(a.time).toDateString() === today) },
+        { id: 'daily_login', icon: 'login', color: '#4d41df', coins: 10, label: 'Daily Login', desc: 'Open the app today', done: r.lastLogin === today },
+        { id: 'complete_profile', icon: 'person_check', color: '#276749', coins: 50, label: 'Complete Profile', desc: 'Fill all profile fields', done: profilePct >= 100 },
+        { id: 'apply_job', icon: 'send', color: '#875041', coins: 20, label: 'Apply to a Job', desc: 'Submit a job application', done: todayApps.length >= 1 },
+        { id: 'enroll_course', icon: 'school', color: '#5c51a0', coins: 15, label: 'Enroll in a Course', desc: 'Join any Skill Hub course', done: r.activity.some(a => a.reason.startsWith('Enrolled in') && new Date(a.time).toDateString() === today) },
+        { id: 'list_product', icon: 'storefront', color: '#c77dff', coins: 25, label: 'List a Product', desc: 'Add a product to your shop', done: r.activity.some(a => a.reason === 'Listed a new product' && new Date(a.time).toDateString() === today) },
     ];
 }
 
@@ -3143,8 +3143,8 @@ function _renderTasks() {
     const _cardBg = _d ? '#1c1b2e' : '#fff';
     const _border = _d ? '#2a2840' : '#eae6f3';
     const _titleC = _d ? '#e8e6f4' : '#1b1b24';
-    const _subC   = _d ? '#9e9bb8' : '#777587';
-    const _coinC  = _d ? '#e8e6f4' : '#1b1b24';
+    const _subC = _d ? '#9e9bb8' : '#777587';
+    const _coinC = _d ? '#e8e6f4' : '#1b1b24';
     container.innerHTML = tasks.map(t => `
         <div style="display:flex;align-items:center;gap:12px;background:${_cardBg};border-radius:16px;padding:12px 14px;border:1px solid ${t.done ? 'rgba(45,106,79,0.20)' : _border};box-shadow:0 2px 8px -4px rgba(77,65,223,0.08);transition:all 0.2s;${t.done ? 'opacity:0.75' : ''}">
             <div style="width:40px;height:40px;border-radius:12px;background:${t.done ? 'rgba(45,106,79,0.12)' : `rgba(${t.color === '#4d41df' ? '77,65,223' : t.color === '#276749' ? '45,106,79' : t.color === '#875041' ? '135,80,65' : t.color === '#5c51a0' ? '92,81,160' : '199,125,255'},0.12)`};display:flex;align-items:center;justify-content:center;flex-shrink:0">
@@ -3166,8 +3166,8 @@ function _renderActivity(r) {
     const _d = document.documentElement.classList.contains('dark-theme');
     const _cardBg = _d ? '#1c1b2e' : '#fff';
     const _border = _d ? '#2a2840' : '#eae6f3';
-    const _textC  = _d ? '#c8c6dc' : '#464555';
-    const _earnC  = _d ? '#74c69d' : '#276749';
+    const _textC = _d ? '#c8c6dc' : '#464555';
+    const _earnC = _d ? '#74c69d' : '#276749';
     if (!container) return;
     if (!r.activity.length) {
         container.innerHTML = `<div style="text-align:center;padding:24px 0;color:#9e9bb8;font-size:13px">No activity yet. Start earning coins!</div>`;
@@ -3345,8 +3345,8 @@ function loadCompanyApplications() {
 
     const statusStyle = s => s === 'Applied' ? 'background:rgba(77,65,223,0.10);color:#4d41df'
         : s === 'Shortlisted' ? 'background:rgba(92,81,160,0.10);color:#5c51a0'
-        : s === 'Hired' ? 'background:rgba(45,106,79,0.10);color:#276749'
-        : 'background:rgba(135,80,65,0.10);color:#875041';
+            : s === 'Hired' ? 'background:rgba(45,106,79,0.10);color:#276749'
+                : 'background:rgba(135,80,65,0.10);color:#875041';
 
     container.innerHTML = apps.map(app => {
         const date = new Date(app.appliedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -3388,7 +3388,7 @@ auth.onAuthStateChanged((user) => {
 
 // Patch handleRegister to redirect company users to company dashboard
 const _origHandleRegister = window.handleRegister;
-window.handleRegister = async function(role) {
+window.handleRegister = async function (role) {
     await _origHandleRegister(role);
     if (role === 'company') {
         setTimeout(() => {
@@ -3400,7 +3400,7 @@ window.handleRegister = async function(role) {
 
 // Patch handleLogin to redirect company users
 const _origHandleLogin = window.handleLogin;
-window.handleLogin = async function() {
+window.handleLogin = async function () {
     await _origHandleLogin();
     setTimeout(() => {
         const d = getProfileData();
@@ -3434,7 +3434,7 @@ function saveCompanyData(data) {
 }
 
 // Override the stub loadCompanyProfile with a full implementation
-loadCompanyProfile = function() {
+loadCompanyProfile = function () {
     const d = getCompanyData();
     const user = auth.currentUser;
     if (!d.name && user && user.displayName) { d.name = user.displayName; saveCompanyData(d); }
@@ -3456,7 +3456,7 @@ loadCompanyProfile = function() {
     const hlEl = document.getElementById('co-profile-highlights-list');
     if (hlEl) {
         const lines = (d.highlights || '').split('\n').map(l => l.trim()).filter(Boolean);
-        hlEl.innerHTML = lines.length ? lines.map(function(l){ return '<div style="display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="font-size:16px;color:#5c51a0">check_circle</span><p style="font-size:13px;font-weight:500;color:inherit">' + l + '</p></div>'; }).join('') : '<p style="font-size:13px;color:#777587">No highlights added yet.</p>';
+        hlEl.innerHTML = lines.length ? lines.map(function (l) { return '<div style="display:flex;align-items:center;gap:8px"><span class="material-symbols-outlined" style="font-size:16px;color:#5c51a0">check_circle</span><p style="font-size:13px;font-weight:500;color:inherit">' + l + '</p></div>'; }).join('') : '<p style="font-size:13px;color:#777587">No highlights added yet.</p>';
     }
     const jobCount = (typeof getCompanyJobs === 'function') ? getCompanyJobs().length : 0;
     set('co-stat-jobs-count', jobCount || '0');
@@ -3466,11 +3466,11 @@ loadCompanyProfile = function() {
     set('co-profile-industry-detail', d.industry || '-');
     set('co-profile-mission', d.mission || 'No mission statement added yet.');
     var specEl = document.getElementById('co-profile-specialisations');
-    if (specEl) { var specs = (d.specialisations||'').split(',').map(function(s){return s.trim();}).filter(Boolean); specEl.innerHTML = specs.length ? specs.map(function(s){return '<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(77,65,223,0.10);color:#4d41df">'+s+'</span>';}).join('') : '<p style="font-size:13px;color:#777587">-</p>'; }
+    if (specEl) { var specs = (d.specialisations || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean); specEl.innerHTML = specs.length ? specs.map(function (s) { return '<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(77,65,223,0.10);color:#4d41df">' + s + '</span>'; }).join('') : '<p style="font-size:13px;color:#777587">-</p>'; }
     var socialEl = document.getElementById('co-social-links');
-    if (socialEl) { var sLinks=[]; if(d.website) sLinks.push({icon:'language',label:'Website',url:d.website.startsWith('http')?d.website:'https://'+d.website,color:'#4d41df'}); if(d.linkedin) sLinks.push({icon:'group',label:'LinkedIn',url:d.linkedin,color:'#0077b5'}); if(d.twitter) sLinks.push({icon:'tag',label:'Twitter/X',url:d.twitter,color:'#1da1f2'}); socialEl.innerHTML = sLinks.length ? sLinks.map(function(l){return '<a href="'+l.url+'" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 0;text-decoration:none"><div style="width:32px;height:32px;border-radius:10px;background:rgba(77,65,223,0.08);display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:16px;color:'+l.color+'">'+l.icon+'</span></div><p style="font-size:13px;font-weight:600;color:'+l.color+'">'+l.label+'</p></a>';}).join('') : '<p style="font-size:13px;color:#777587">No social links added yet.</p>'; }
+    if (socialEl) { var sLinks = []; if (d.website) sLinks.push({ icon: 'language', label: 'Website', url: d.website.startsWith('http') ? d.website : 'https://' + d.website, color: '#4d41df' }); if (d.linkedin) sLinks.push({ icon: 'group', label: 'LinkedIn', url: d.linkedin, color: '#0077b5' }); if (d.twitter) sLinks.push({ icon: 'tag', label: 'Twitter/X', url: d.twitter, color: '#1da1f2' }); socialEl.innerHTML = sLinks.length ? sLinks.map(function (l) { return '<a href="' + l.url + '" target="_blank" style="display:flex;align-items:center;gap:10px;padding:8px 0;text-decoration:none"><div style="width:32px;height:32px;border-radius:10px;background:rgba(77,65,223,0.08);display:flex;align-items:center;justify-content:center"><span class="material-symbols-outlined" style="font-size:16px;color:' + l.color + '">' + l.icon + '</span></div><p style="font-size:13px;font-weight:600;color:' + l.color + '">' + l.label + '</p></a>'; }).join('') : '<p style="font-size:13px;color:#777587">No social links added yet.</p>'; }
     var jobsListEl = document.getElementById('co-profile-jobs-list');
-    if (jobsListEl && typeof getCompanyJobs==='function') { var aJobs=getCompanyJobs().filter(function(j){return j.status==='active';}).slice(0,3); jobsListEl.innerHTML = aJobs.length ? aJobs.map(function(j){return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(77,65,223,0.05);border-radius:12px;margin-bottom:6px"><div><p style="font-size:13px;font-weight:700;color:#1b1b24">'+j.title+'</p><p style="font-size:11px;color:#777587;margin-top:1px">'+j.type+' &bull; '+j.location+'</p></div><span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(45,106,79,0.10);color:#276749">Active</span></div>';}).join('') : '<p style="font-size:13px;color:#777587">No active jobs yet.</p>'; }
+    if (jobsListEl && typeof getCompanyJobs === 'function') { var aJobs = getCompanyJobs().filter(function (j) { return j.status === 'active'; }).slice(0, 3); jobsListEl.innerHTML = aJobs.length ? aJobs.map(function (j) { return '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(77,65,223,0.05);border-radius:12px;margin-bottom:6px"><div><p style="font-size:13px;font-weight:700;color:#1b1b24">' + j.title + '</p><p style="font-size:11px;color:#777587;margin-top:1px">' + j.type + ' &bull; ' + j.location + '</p></div><span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:rgba(45,106,79,0.10);color:#276749">Active</span></div>'; }).join('') : '<p style="font-size:13px;color:#777587">No active jobs yet.</p>'; }
     const img = document.getElementById('co-logo-img');
     const icon = document.getElementById('co-logo-icon');
     if (img && icon) {
@@ -3508,24 +3508,24 @@ window.openEditCompanyProfile = openEditCompanyProfile;
 function saveCompanyProfile() {
     const d = getCompanyData();
     const get = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
-    d.name        = get('ecp-name');
-    d.tagline     = get('ecp-tagline');
-    d.industry    = get('ecp-industry');
-    d.employees   = get('ecp-employees');
-    d.founded     = get('ecp-founded');
+    d.name = get('ecp-name');
+    d.tagline = get('ecp-tagline');
+    d.industry = get('ecp-industry');
+    d.employees = get('ecp-employees');
+    d.founded = get('ecp-founded');
     d.description = get('ecp-desc');
-    d.location    = get('ecp-location');
-    d.website     = get('ecp-website');
-    d.email       = get('ecp-email');
-    d.phone       = get('ecp-phone');
-    d.highlights     = get('ecp-highlights');
-    d.type           = get('ecp-type');
-    d.revenue        = get('ecp-revenue');
-    d.hq             = get('ecp-hq');
-    d.specialisations= get('ecp-specialisations');
-    d.mission        = get('ecp-mission');
-    d.linkedin       = get('ecp-linkedin');
-    d.twitter        = get('ecp-twitter');
+    d.location = get('ecp-location');
+    d.website = get('ecp-website');
+    d.email = get('ecp-email');
+    d.phone = get('ecp-phone');
+    d.highlights = get('ecp-highlights');
+    d.type = get('ecp-type');
+    d.revenue = get('ecp-revenue');
+    d.hq = get('ecp-hq');
+    d.specialisations = get('ecp-specialisations');
+    d.mission = get('ecp-mission');
+    d.linkedin = get('ecp-linkedin');
+    d.twitter = get('ecp-twitter');
     saveCompanyData(d);
     _companiesCache = null; // invalidate so updated data shows on next profile view
     companyNavTo('co-own-profile');
@@ -3586,8 +3586,8 @@ function openPostJobForm() {
 
     document.getElementById('pj-edit-id').value = '';
     document.getElementById('pj-company').value = name;
-    ['pj-title','pj-description','pj-type','pj-workmode','pj-location',
-     'pj-salary-min','pj-salary-max','pj-experience','pj-openings','pj-skills','pj-deadline']
+    ['pj-title', 'pj-description', 'pj-type', 'pj-workmode', 'pj-location',
+        'pj-salary-min', 'pj-salary-max', 'pj-experience', 'pj-openings', 'pj-skills', 'pj-deadline']
         .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
     document.getElementById('pj-urgent').checked = false;
     document.getElementById('pj-remote-friendly').checked = false;
@@ -3654,25 +3654,25 @@ function submitPostJob() {
     const get = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
     const getCheck = id => { const el = document.getElementById(id); return el ? el.checked : false; };
 
-    const editId    = get('pj-edit-id');
-    const title     = get('pj-title');
-    const company   = get('pj-company');
+    const editId = get('pj-edit-id');
+    const title = get('pj-title');
+    const company = get('pj-company');
     const description = get('pj-description');
-    const type      = get('pj-type');
-    const workmode  = get('pj-workmode');
-    const location  = get('pj-location');
+    const type = get('pj-type');
+    const workmode = get('pj-workmode');
+    const location = get('pj-location');
     const salaryMin = get('pj-salary-min');
     const salaryMax = get('pj-salary-max');
     const experience = get('pj-experience');
-    const openings  = get('pj-openings');
-    const skills    = get('pj-skills');
-    const deadline  = get('pj-deadline');
-    const urgent    = getCheck('pj-urgent');
+    const openings = get('pj-openings');
+    const skills = get('pj-skills');
+    const deadline = get('pj-deadline');
+    const urgent = getCheck('pj-urgent');
     const remoteFriendly = getCheck('pj-remote-friendly');
-    const status    = editId ? (get('pj-status') || 'active') : 'active';
+    const status = editId ? (get('pj-status') || 'active') : 'active';
 
     const errEl = document.getElementById('pj-error');
-    const btn   = document.getElementById('pj-submit-btn');
+    const btn = document.getElementById('pj-submit-btn');
 
     if (!title || !description || !type || !workmode || !location || !experience || !openings || !skills) {
         errEl.textContent = 'Please fill in all required fields.';
@@ -3686,8 +3686,8 @@ function submitPostJob() {
     const salary = salaryMin && salaryMax
         ? '\u20b9' + Number(salaryMin).toLocaleString('en-IN') + '\u2013\u20b9' + Number(salaryMax).toLocaleString('en-IN') + '/mo'
         : salaryMin ? '\u20b9' + Number(salaryMin).toLocaleString('en-IN') + '/mo'
-        : salaryMax ? 'Up to \u20b9' + Number(salaryMax).toLocaleString('en-IN') + '/mo'
-        : 'Negotiable';
+            : salaryMax ? 'Up to \u20b9' + Number(salaryMax).toLocaleString('en-IN') + '/mo'
+                : 'Negotiable';
 
     const user = auth.currentUser;
     let jobs = getCompanyJobs();
@@ -3697,11 +3697,13 @@ function submitPostJob() {
         // Update existing
         isEdit = true;
         jobs = jobs.map(j => j.id === Number(editId)
-            ? { ...j, title, description, type, workmode, location,
+            ? {
+                ...j, title, description, type, workmode, location,
                 salaryMin: salaryMin ? Number(salaryMin) : null,
                 salaryMax: salaryMax ? Number(salaryMax) : null,
                 salary, experience, openings: Number(openings), skills,
-                deadline: deadline || null, urgent, remoteFriendly, status }
+                deadline: deadline || null, urgent, remoteFriendly, status
+            }
             : j);
     } else {
         // New job
@@ -3721,14 +3723,16 @@ function submitPostJob() {
 
     // Firestore sync
     if (user && !isEdit) {
-        const fsData = { title, company, description, type, workmode, location,
+        const fsData = {
+            title, company, description, type, workmode, location,
             salaryMin: salaryMin ? Number(salaryMin) : null,
             salaryMax: salaryMax ? Number(salaryMax) : null,
             salary, experience, openings: Number(openings), skills,
             deadline: deadline || null, urgent, remoteFriendly,
             companyId: user.uid, status: 'active',
-            postedAt: firebase.firestore.FieldValue.serverTimestamp() };
-        db.collection('jobs').add(fsData).catch(() => {});
+            postedAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+        db.collection('jobs').add(fsData).catch(() => { });
     }
 
     setTimeout(() => {
@@ -3770,7 +3774,7 @@ window.reopenJob = reopenJob;
 // ---- Render the posted jobs list ----
 function renderPostedJobsList() {
     const container = document.getElementById('pj-jobs-list');
-    const countEl   = document.getElementById('pj-jobs-count');
+    const countEl = document.getElementById('pj-jobs-count');
     if (!container) return;
 
     const jobs = getCompanyJobs();
@@ -3790,12 +3794,12 @@ function renderPostedJobsList() {
 
     container.innerHTML = jobs.map((job, idx) => {
         const isActive = job.status === 'active';
-        const date = new Date(job.postedAt).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+        const date = new Date(job.postedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
         const typeColor = job.type === 'Full-time' ? '#4d41df' : job.type === 'Part-time' ? '#875041' : job.type === 'Internship' ? '#5c51a0' : '#276749';
-        const typeBg   = job.type === 'Full-time' ? 'rgba(77,65,223,0.10)' : job.type === 'Part-time' ? 'rgba(135,80,65,0.10)' : job.type === 'Internship' ? 'rgba(92,81,160,0.10)' : 'rgba(45,106,79,0.10)';
+        const typeBg = job.type === 'Full-time' ? 'rgba(77,65,223,0.10)' : job.type === 'Part-time' ? 'rgba(135,80,65,0.10)' : job.type === 'Internship' ? 'rgba(92,81,160,0.10)' : 'rgba(45,106,79,0.10)';
         const statusColor = isActive ? '#276749' : '#875041';
-        const statusBg    = isActive ? 'rgba(45,106,79,0.10)' : 'rgba(135,80,65,0.10)';
-        const animDelay   = idx * 60;
+        const statusBg = isActive ? 'rgba(45,106,79,0.10)' : 'rgba(135,80,65,0.10)';
+        const animDelay = idx * 60;
         return `
         <div style="background:#fff;border-radius:20px;padding:16px;border:1px solid #eae6f3;box-shadow:0 2px 12px -4px rgba(77,65,223,0.08);opacity:0;transform:translateY(10px);transition:opacity 0.3s ease ${animDelay}ms,transform 0.3s ease ${animDelay}ms" class="pj-job-card">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
@@ -3816,16 +3820,16 @@ function renderPostedJobsList() {
             <div style="display:flex;align-items:center;gap:4px;margin-top:8px">
                 <span class="material-symbols-outlined" style="font-size:13px;color:#9e9bb8">calendar_today</span>
                 <p style="font-size:11px;color:#9e9bb8">Posted ${date}</p>
-                ${job.deadline ? `<span style="font-size:11px;color:#9e9bb8;margin-left:6px">&bull; Deadline: ${new Date(job.deadline).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</span>` : ''}
+                ${job.deadline ? `<span style="font-size:11px;color:#9e9bb8;margin-left:6px">&bull; Deadline: ${new Date(job.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>` : ''}
             </div>
             <div style="display:flex;gap:8px;margin-top:12px">
                 <button onclick="openEditJobForm(${job.id})" style="flex:1;height:36px;border-radius:10px;border:1.5px solid #4d41df;background:transparent;color:#4d41df;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:background 0.15s" onmouseenter="this.style.background='rgba(77,65,223,0.07)'" onmouseleave="this.style.background='transparent'">
                     <span class="material-symbols-outlined" style="font-size:15px">edit</span>Edit
                 </button>
                 ${isActive
-                    ? `<button onclick="closeJob(${job.id})" style="flex:1;height:36px;border-radius:10px;border:1.5px solid #875041;background:transparent;color:#875041;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:background 0.15s" onmouseenter="this.style.background='rgba(135,80,65,0.07)'" onmouseleave="this.style.background='transparent'"><span class="material-symbols-outlined" style="font-size:15px">lock</span>Close Job</button>`
-                    : `<button onclick="reopenJob(${job.id})" style="flex:1;height:36px;border-radius:10px;border:1.5px solid #276749;background:transparent;color:#276749;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:background 0.15s" onmouseenter="this.style.background='rgba(45,106,79,0.07)'" onmouseleave="this.style.background='transparent'"><span class="material-symbols-outlined" style="font-size:15px">lock_open</span>Reopen</button>`
-                }
+                ? `<button onclick="closeJob(${job.id})" style="flex:1;height:36px;border-radius:10px;border:1.5px solid #875041;background:transparent;color:#875041;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:background 0.15s" onmouseenter="this.style.background='rgba(135,80,65,0.07)'" onmouseleave="this.style.background='transparent'"><span class="material-symbols-outlined" style="font-size:15px">lock</span>Close Job</button>`
+                : `<button onclick="reopenJob(${job.id})" style="flex:1;height:36px;border-radius:10px;border:1.5px solid #276749;background:transparent;color:#276749;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:background 0.15s" onmouseenter="this.style.background='rgba(45,106,79,0.07)'" onmouseleave="this.style.background='transparent'"><span class="material-symbols-outlined" style="font-size:15px">lock_open</span>Reopen</button>`
+            }
             </div>
         </div>`;
     }).join('');
@@ -3856,7 +3860,7 @@ function updateActiveJobsCounter() {
             .where('status', '==', 'active')
             .get()
             .then(snap => { _animateCounter(el, Math.max(snap.size, localCount)); })
-            .catch(() => {});
+            .catch(() => { });
     }
 }
 window.updateActiveJobsCounter = updateActiveJobsCounter;
@@ -3875,9 +3879,9 @@ function _animateCounter(el, newVal) {
 }
 
 // Patch companyNavTo to render jobs list and refresh counter
-(function() {
+(function () {
     const _orig = window.companyNavTo;
-    window.companyNavTo = function(screenId) {
+    window.companyNavTo = function (screenId) {
         _orig(screenId);
         if (screenId === 'company-post-job') renderPostedJobsList();
         if (screenId === 'company-dashboard') updateActiveJobsCounter();
@@ -3965,12 +3969,12 @@ const _trainingObjectURLs = {};
 
 function submitTrainingVideo() {
     const title = document.getElementById('tv-title').value.trim();
-    const desc  = document.getElementById('tv-desc').value.trim();
-    const fileInput   = document.getElementById('tv-file');
+    const desc = document.getElementById('tv-desc').value.trim();
+    const fileInput = document.getElementById('tv-file');
     const cameraInput = document.getElementById('tv-camera');
     const file = (fileInput.files && fileInput.files[0]) || (cameraInput.files && cameraInput.files[0]);
     const errEl = document.getElementById('tv-error');
-    const btn   = document.getElementById('tv-submit-btn');
+    const btn = document.getElementById('tv-submit-btn');
 
     if (!title) { errEl.textContent = 'Please enter a video title.'; errEl.classList.remove('hidden'); return; }
     errEl.classList.add('hidden');
@@ -4026,11 +4030,11 @@ function openTrainingPlayer(id) {
     const v = _getTrainingVideos().find(x => x.id === id);
     if (!v) return;
     const objUrl = _trainingObjectURLs[v.id] || '';
-    const video  = document.getElementById('training-player-video');
+    const video = document.getElementById('training-player-video');
     const noFile = document.getElementById('player-no-file');
 
     document.getElementById('player-title').textContent = v.title;
-    document.getElementById('player-meta').textContent  = v.desc || '';
+    document.getElementById('player-meta').textContent = v.desc || '';
 
     const isPrivate = v.privacy === 'private';
     const badge = document.getElementById('player-privacy-badge');
@@ -4039,7 +4043,7 @@ function openTrainingPlayer(id) {
         ? 'font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(135,80,65,0.25);color:#feb5a2'
         : 'font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(45,106,79,0.25);color:#74c69d';
 
-    document.getElementById('player-date').textContent = new Date(v.uploadedAt).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+    document.getElementById('player-date').textContent = new Date(v.uploadedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
     document.getElementById('player-size').textContent = v.fileSize || '';
 
     if (objUrl) {
@@ -4064,13 +4068,13 @@ window.openTrainingPlayer = openTrainingPlayer;
 function openPublicVideoPlayer(v) {
     if (!v) return;
     document.getElementById('player-title').textContent = v.title || 'Untitled';
-    document.getElementById('player-meta').textContent  = v.desc || '';
+    document.getElementById('player-meta').textContent = v.desc || '';
     const badge = document.getElementById('player-privacy-badge');
     badge.textContent = 'Public';
     badge.style.cssText = 'font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:rgba(45,106,79,0.25);color:#74c69d';
-    document.getElementById('player-date').textContent = v.uploadedAt ? new Date(v.uploadedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
+    document.getElementById('player-date').textContent = v.uploadedAt ? new Date(v.uploadedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
     document.getElementById('player-size').textContent = v.fileSize || '';
-    const video  = document.getElementById('training-player-video');
+    const video = document.getElementById('training-player-video');
     const noFile = document.getElementById('player-no-file');
     // Try in-memory object URL first (same session as uploader), then no-file fallback
     const objUrl = _trainingObjectURLs[v.id] || '';
@@ -4101,29 +4105,29 @@ function closeTrainingPlayer(e) {
 }
 window.closeTrainingPlayer = closeTrainingPlayer;
 function loadTrainingScreen() {
-    const videos  = _getTrainingVideos();
+    const videos = _getTrainingVideos();
     // Sync to Firestore on every load so other users always see latest public videos
     if (videos.length) _saveTrainingVideos(videos);
-    const empty   = document.getElementById('training-empty-state');
-    const list    = document.getElementById('training-list');
-    const fab     = document.getElementById('training-fab');
+    const empty = document.getElementById('training-empty-state');
+    const list = document.getElementById('training-list');
+    const fab = document.getElementById('training-fab');
     if (!list) return;
 
-    const _d     = document.documentElement.classList.contains('dark-theme');
+    const _d = document.documentElement.classList.contains('dark-theme');
     const cardBg = _d ? '#1c1b2e' : '#ffffff';
     const border = _d ? '#2a2840' : '#eae6f3';
     const titleC = _d ? '#e8e6f4' : '#1b1b24';
-    const subC   = _d ? '#9e9bb8' : '#777587';
+    const subC = _d ? '#9e9bb8' : '#777587';
     const shadow = _d ? '0 4px 16px -4px rgba(0,0,0,0.5)' : '0 4px 16px -4px rgba(77,65,223,0.10)';
-    const thumbBg= _d ? '#252438' : '#f0ecf9';
+    const thumbBg = _d ? '#252438' : '#f0ecf9';
 
     // Update stats
-    const total   = videos.length;
-    const pub     = videos.filter(v => v.privacy === 'public').length;
-    const priv    = videos.filter(v => v.privacy === 'private').length;
-    const setEl   = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-    setEl('training-stat-total',   total);
-    setEl('training-stat-public',  pub);
+    const total = videos.length;
+    const pub = videos.filter(v => v.privacy === 'public').length;
+    const priv = videos.filter(v => v.privacy === 'private').length;
+    const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    setEl('training-stat-total', total);
+    setEl('training-stat-public', pub);
     setEl('training-stat-private', priv);
 
     if (total === 0) {
@@ -4135,8 +4139,8 @@ function loadTrainingScreen() {
     empty.classList.add('hidden'); empty.style.display = 'none';
     if (fab) fab.classList.remove('hidden');
 
-    const recent  = videos.slice(0, 4);
-    const older   = videos.slice(4);
+    const recent = videos.slice(0, 4);
+    const older = videos.slice(4);
 
     const gradients = [
         'linear-gradient(135deg,#4d41df,#675df9)',
@@ -4147,14 +4151,14 @@ function loadTrainingScreen() {
     ];
 
     const videoCard = (v, idx) => {
-        const isPrivate   = v.privacy === 'private';
-        const date        = new Date(v.uploadedAt).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
-        const privacyCol  = isPrivate ? '#875041' : '#276749';
-        const privacyBg   = isPrivate ? 'rgba(135,80,65,0.12)' : 'rgba(45,106,79,0.12)';
+        const isPrivate = v.privacy === 'private';
+        const date = new Date(v.uploadedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+        const privacyCol = isPrivate ? '#875041' : '#276749';
+        const privacyBg = isPrivate ? 'rgba(135,80,65,0.12)' : 'rgba(45,106,79,0.12)';
         const privacyIcon = isPrivate ? 'lock' : 'public';
-        const grad        = gradients[idx % gradients.length];
-        const objUrl      = _trainingObjectURLs[v.id] || '';
-        const initials    = v.title.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+        const grad = gradients[idx % gradients.length];
+        const objUrl = _trainingObjectURLs[v.id] || '';
+        const initials = v.title.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
         return `
         <div onclick="openTrainingPlayer(${v.id})" style="background:${cardBg};border-radius:20px;overflow:hidden;border:1px solid ${border};box-shadow:${shadow};transition:transform 0.15s;cursor:pointer"
@@ -4162,11 +4166,11 @@ function loadTrainingScreen() {
             <!-- Thumbnail -->
             <div style="width:100%;height:140px;background:${thumbBg};position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center">
                 ${objUrl
-                    ? `<video src="${objUrl}" style="width:100%;height:100%;object-fit:cover" muted></video>`
-                    : `<div style="width:100%;height:100%;background:${grad};display:flex;align-items:center;justify-content:center">
+                ? `<video src="${objUrl}" style="width:100%;height:100%;object-fit:cover" muted></video>`
+                : `<div style="width:100%;height:100%;background:${grad};display:flex;align-items:center;justify-content:center">
                         <span class="material-symbols-outlined" style="font-size:48px;color:rgba(255,255,255,0.9);font-variation-settings:'FILL' 1">play_circle</span>
                        </div>`
-                }
+            }
                 <!-- Privacy badge -->
                 <span style="position:absolute;top:8px;left:8px;background:${privacyBg};color:${privacyCol};font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;backdrop-filter:blur(8px);display:flex;align-items:center;gap:3px;border:1px solid ${privacyCol}30">
                     <span class="material-symbols-outlined" style="font-size:10px;font-variation-settings:'FILL' 1">${privacyIcon}</span>${isPrivate ? 'Private' : 'Public'}
@@ -4273,31 +4277,31 @@ async function _getAllRegisteredCompanies() {
                 const cpKey = `companyProfileData_${doc.id}`;
                 const cp = JSON.parse(localStorage.getItem(cpKey) || '{}');
                 companies.push({
-                    uid:             doc.id,
-                    name:            cp.name            || d.name            || '',
-                    tagline:         cp.tagline          || d.tagline         || '',
-                    industry:        cp.industry         || d.industry        || '',
-                    location:        cp.location         || d.address         || d.location || '',
-                    description:     cp.description      || d.description     || '',
-                    email:           cp.email            || d.email           || '',
-                    phone:           cp.phone            || d.phone           || '',
-                    address:         cp.address          || d.address         || '',
-                    website:         cp.website          || d.website         || '',
-                    employees:       cp.employees        || d.employees       || '',
-                    founded:         cp.founded          || d.founded         || '',
-                    logo:            cp.logo             || d.logo            || '',
-                    type:            cp.type             || d.type            || '',
-                    revenue:         cp.revenue          || d.revenue         || '',
-                    hq:              cp.hq               || d.hq              || '',
-                    mission:         cp.mission          || d.mission         || '',
-                    highlights:      cp.highlights       || d.highlights      || '',
-                    specialisations: cp.specialisations  || d.specialisations || '',
-                    linkedin:        cp.linkedin         || d.linkedin        || '',
-                    twitter:         cp.twitter          || d.twitter         || '',
+                    uid: doc.id,
+                    name: cp.name || d.name || '',
+                    tagline: cp.tagline || d.tagline || '',
+                    industry: cp.industry || d.industry || '',
+                    location: cp.location || d.address || d.location || '',
+                    description: cp.description || d.description || '',
+                    email: cp.email || d.email || '',
+                    phone: cp.phone || d.phone || '',
+                    address: cp.address || d.address || '',
+                    website: cp.website || d.website || '',
+                    employees: cp.employees || d.employees || '',
+                    founded: cp.founded || d.founded || '',
+                    logo: cp.logo || d.logo || '',
+                    type: cp.type || d.type || '',
+                    revenue: cp.revenue || d.revenue || '',
+                    hq: cp.hq || d.hq || '',
+                    mission: cp.mission || d.mission || '',
+                    highlights: cp.highlights || d.highlights || '',
+                    specialisations: cp.specialisations || d.specialisations || '',
+                    linkedin: cp.linkedin || d.linkedin || '',
+                    twitter: cp.twitter || d.twitter || '',
                 });
             }
         });
-    } catch(e) {
+    } catch (e) {
         console.warn('Firestore company fetch failed, falling back to localStorage', e);
     }
 
@@ -4311,7 +4315,7 @@ async function _getAllRegisteredCompanies() {
                 const uid = key.replace('companyProfileData_', '');
                 companies.push(Object.assign({}, d, { uid: d.uid || uid }));
             }
-        } catch(e) {}
+        } catch (e) { }
     });
 
     // 3. Fallback: profileData_* with role=company
@@ -4329,22 +4333,22 @@ async function _getAllRegisteredCompanies() {
                     employees: d.employees || '', founded: d.founded || '', logo: '',
                 });
             }
-        } catch(e) {}
+        } catch (e) { }
     });
 
 
     // Static sample companies — always visible even before any company registers
     [
-        { name:'TechSeva',           industry:'Technology', location:'Remote',    description:'Hiring freshers in tech roles.',          tagline:'Hiring freshers now!',  logo:'' },
-        { name:'Craft India',        industry:'Education',  location:'Mumbai',    description:'Teaching tailoring and crafts to women.', tagline:'Empowering artisans',   logo:'' },
-        { name:'GlowUp Studio',      industry:'Retail',     location:'Delhi',     description:'Beauty and wellness consultancy.',        tagline:'Beauty meets career',   logo:'' },
-        { name:'MediCare Plus',      industry:'Healthcare', location:'Bangalore', description:'Healthcare support roles available.',     tagline:'Join our care team',    logo:'' },
-        { name:'BrightMinds School', industry:'Education',  location:'Pune',      description:'Primary school teachers needed.',        tagline:'Shape future leaders',  logo:'' },
-        { name:'CodeNest',           industry:'Technology', location:'Hybrid',    description:'Web development internships available.',  tagline:'Build the future',      logo:'' },
-        { name:'FashionHub',         industry:'Retail',     location:'Chennai',   description:'Retail management and sales roles.',     tagline:'Style meets career',    logo:'' },
-        { name:'PixelWorks',         industry:'Design',     location:'Hybrid',    description:'UI/UX design internships available.',    tagline:'Create. Inspire. Grow.',logo:'' },
-        { name:'WordCraft',          industry:'Media',      location:'Remote',    description:'Content writing and editing roles.',     tagline:'Words that matter',     logo:'' },
-        { name:'InsightCo',          industry:'Technology', location:'Remote',    description:'Data analyst positions open.',           tagline:'Data-driven growth',    logo:'' },
+        { name: 'TechSeva', industry: 'Technology', location: 'Remote', description: 'Hiring freshers in tech roles.', tagline: 'Hiring freshers now!', logo: '' },
+        { name: 'Craft India', industry: 'Education', location: 'Mumbai', description: 'Teaching tailoring and crafts to women.', tagline: 'Empowering artisans', logo: '' },
+        { name: 'GlowUp Studio', industry: 'Retail', location: 'Delhi', description: 'Beauty and wellness consultancy.', tagline: 'Beauty meets career', logo: '' },
+        { name: 'MediCare Plus', industry: 'Healthcare', location: 'Bangalore', description: 'Healthcare support roles available.', tagline: 'Join our care team', logo: '' },
+        { name: 'BrightMinds School', industry: 'Education', location: 'Pune', description: 'Primary school teachers needed.', tagline: 'Shape future leaders', logo: '' },
+        { name: 'CodeNest', industry: 'Technology', location: 'Hybrid', description: 'Web development internships available.', tagline: 'Build the future', logo: '' },
+        { name: 'FashionHub', industry: 'Retail', location: 'Chennai', description: 'Retail management and sales roles.', tagline: 'Style meets career', logo: '' },
+        { name: 'PixelWorks', industry: 'Design', location: 'Hybrid', description: 'UI/UX design internships available.', tagline: 'Create. Inspire. Grow.', logo: '' },
+        { name: 'WordCraft', industry: 'Media', location: 'Remote', description: 'Content writing and editing roles.', tagline: 'Words that matter', logo: '' },
+        { name: 'InsightCo', industry: 'Technology', location: 'Remote', description: 'Data analyst positions open.', tagline: 'Data-driven growth', logo: '' },
     ].forEach(s => { if (!seen.has(s.name)) { seen.add(s.name); companies.push(s); } });
 
     _companiesCache = companies;
@@ -4352,9 +4356,9 @@ async function _getAllRegisteredCompanies() {
 }
 
 async function searchCompanies() {
-    const q       = (document.getElementById('company-search-input')?.value || '').toLowerCase().trim();
+    const q = (document.getElementById('company-search-input')?.value || '').toLowerCase().trim();
     const results = document.getElementById('company-search-results');
-    const empty   = document.getElementById('company-search-empty');
+    const empty = document.getElementById('company-search-empty');
     const countEl = document.getElementById('company-search-count');
     if (!results) return;
 
@@ -4380,13 +4384,13 @@ async function searchCompanies() {
     }
     empty.classList.add('hidden'); empty.style.display = 'none';
 
-    const _d     = document.documentElement.classList.contains('dark-theme');
+    const _d = document.documentElement.classList.contains('dark-theme');
     const cardBg = _d ? '#1c1b2e' : '#ffffff';
     const border = _d ? '#2a2840' : '#eae6f3';
     const titleC = _d ? '#e8e6f4' : '#1b1b24';
-    const subC   = _d ? '#9e9bb8' : '#777587';
+    const subC = _d ? '#9e9bb8' : '#777587';
     const shadow = _d ? '0 4px 16px -4px rgba(0,0,0,0.45)' : '0 4px 16px -4px rgba(77,65,223,0.10)';
-    const grads  = [
+    const grads = [
         'linear-gradient(135deg,#4d41df,#675df9)',
         'linear-gradient(135deg,#875041,#feb5a2)',
         'linear-gradient(135deg,#5c51a0,#c8bfff)',
@@ -4395,12 +4399,12 @@ async function searchCompanies() {
     ];
 
     results.innerHTML = filtered.map((c, i) => {
-        const initials  = c.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-        const grad      = grads[i % grads.length];
-        const desc      = c.description || c.tagline || 'No description available.';
+        const initials = c.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        const grad = grads[i % grads.length];
+        const desc = c.description || c.tagline || 'No description available.';
         const shortDesc = desc.length > 100 ? desc.slice(0, 100) + '...' : desc;
-        const chips     = [c.industry, c.type, c.employees ? c.employees + ' employees' : '', c.founded ? 'Est. ' + c.founded : ''].filter(Boolean);
-        const safeName  = c.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        const chips = [c.industry, c.type, c.employees ? c.employees + ' employees' : '', c.founded ? 'Est. ' + c.founded : ''].filter(Boolean);
+        const safeName = c.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 
         const logoHtml = c.logo
             ? `<img src="${c.logo}" alt="${c.name}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -4455,7 +4459,7 @@ function viewCompanyDetails(name) {
         const _d = document.documentElement.classList.contains('dark-theme');
         const bg = _d ? '#1c1b2e' : '#ffffff';
         const titleC = _d ? '#e8e6f4' : '#1b1b24';
-        const subC   = _d ? '#9e9bb8' : '#777587';
+        const subC = _d ? '#9e9bb8' : '#777587';
 
         let existing = document.getElementById('co-detail-modal');
         if (existing) existing.remove();
@@ -4466,14 +4470,14 @@ function viewCompanyDetails(name) {
         modal.onclick = e => { if (e.target === modal) modal.remove(); };
 
         const rows = [
-            c.industry    ? ['business_center', 'Industry',    c.industry]    : null,
-            c.type        ? ['corporate_fare',  'Type',        c.type]        : null,
-            c.location    ? ['location_on',     'Location',    c.location]    : null,
-            c.employees   ? ['group',           'Employees',   c.employees]   : null,
-            c.founded     ? ['calendar_today',  'Founded',     c.founded]     : null,
-            c.email       ? ['mail',            'Email',       c.email]       : null,
-            c.website     ? ['language',        'Website',     `<a href="${c.website.startsWith('http') ? c.website : 'https://' + c.website}" target="_blank" style="color:#4d41df;font-weight:600">${c.website}</a>`] : null,
-            c.linkedin    ? ['group',           'LinkedIn',    `<a href="${c.linkedin}" target="_blank" style="color:#0077b5;font-weight:600">View Profile</a>`] : null,
+            c.industry ? ['business_center', 'Industry', c.industry] : null,
+            c.type ? ['corporate_fare', 'Type', c.type] : null,
+            c.location ? ['location_on', 'Location', c.location] : null,
+            c.employees ? ['group', 'Employees', c.employees] : null,
+            c.founded ? ['calendar_today', 'Founded', c.founded] : null,
+            c.email ? ['mail', 'Email', c.email] : null,
+            c.website ? ['language', 'Website', `<a href="${c.website.startsWith('http') ? c.website : 'https://' + c.website}" target="_blank" style="color:#4d41df;font-weight:600">${c.website}</a>`] : null,
+            c.linkedin ? ['group', 'LinkedIn', `<a href="${c.linkedin}" target="_blank" style="color:#0077b5;font-weight:600">View Profile</a>`] : null,
         ].filter(Boolean);
 
         const chips = (c.specialisations || '').split(',').map(s => s.trim()).filter(Boolean);
@@ -4485,7 +4489,7 @@ function viewCompanyDetails(name) {
                 <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px">
                     <div style="display:flex;align-items:center;gap:12px">
                         <div style="width:56px;height:56px;border-radius:16px;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#4d41df,#675df9);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff">
-                            ${c.logo ? `<img src="${c.logo}" style="width:100%;height:100%;object-fit:cover"/>` : c.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
+                            ${c.logo ? `<img src="${c.logo}" style="width:100%;height:100%;object-fit:cover"/>` : c.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
                         </div>
                         <div>
                             <p style="font-size:18px;font-weight:800;color:${titleC};font-family:'Plus Jakarta Sans',sans-serif">${c.name}</p>
@@ -4505,11 +4509,11 @@ function viewCompanyDetails(name) {
                         <p style="font-size:13px;font-weight:600;color:${titleC}">${val}</p>
                     </div>`).join('')}
                 </div>
-                ${chips.length ? `<div style="margin-bottom:14px"><p style="font-size:11px;font-weight:700;color:#777587;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px">Specialisations</p><div style="display:flex;flex-wrap:wrap;gap:5px">${chips.map(s=>`<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(77,65,223,0.10);color:#4d41df">${s}</span>`).join('')}</div></div>` : ''}
+                ${chips.length ? `<div style="margin-bottom:14px"><p style="font-size:11px;font-weight:700;color:#777587;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px">Specialisations</p><div style="display:flex;flex-wrap:wrap;gap:5px">${chips.map(s => `<span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:rgba(77,65,223,0.10);color:#4d41df">${s}</span>`).join('')}</div></div>` : ''}
             </div>
             <div style="padding:16px;display:flex;gap:8px">
                 <button onclick="document.getElementById('co-detail-modal').remove()" style="flex:1;height:44px;border-radius:14px;border:1.5px solid rgba(77,65,223,0.25);background:transparent;color:#4d41df;font-size:13px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif">Close</button>
-                <button onclick="applyToCompany('${c.name.replace(/'/g,"\\'")}');document.getElementById('co-detail-modal').remove()" style="flex:2;height:44px;border-radius:14px;border:none;background:linear-gradient(135deg,#4d41df,#5c51a0);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px"><span class="material-symbols-outlined" style="font-size:16px;font-variation-settings:'FILL' 1">send</span>Apply to Jobs</button>
+                <button onclick="applyToCompany('${c.name.replace(/'/g, "\\'")}');document.getElementById('co-detail-modal').remove()" style="flex:2;height:44px;border-radius:14px;border:none;background:linear-gradient(135deg,#4d41df,#5c51a0);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px"><span class="material-symbols-outlined" style="font-size:16px;font-variation-settings:'FILL' 1">send</span>Apply to Jobs</button>
             </div>
         </div>`;
         document.body.appendChild(modal);
@@ -4556,14 +4560,14 @@ function renderCompanyProfile() {
     _getAllRegisteredCompanies().then(all => {
         const c = all.find(x => x.name === name) || { name };
 
-        const _d     = document.documentElement.classList.contains('dark-theme');
+        const _d = document.documentElement.classList.contains('dark-theme');
         const titleC = _d ? '#e8e6f4' : '#1b1b24';
-        const subC   = _d ? '#9e9bb8' : '#777587';
+        const subC = _d ? '#9e9bb8' : '#777587';
         const cardBg = _d ? '#1c1b2e' : '#fff';
         const border = _d ? '#2a2840' : '#eae6f3';
-        const grads  = ['linear-gradient(135deg,#4d41df,#675df9)','linear-gradient(135deg,#875041,#feb5a2)','linear-gradient(135deg,#5c51a0,#c8bfff)','linear-gradient(135deg,#2d6a4f,#74c69d)','linear-gradient(135deg,#c77dff,#7b2d8b)'];
-        const grad   = grads[Math.abs(name.split('').reduce((a,ch)=>a+ch.charCodeAt(0),0)) % grads.length];
-        const initials = name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+        const grads = ['linear-gradient(135deg,#4d41df,#675df9)', 'linear-gradient(135deg,#875041,#feb5a2)', 'linear-gradient(135deg,#5c51a0,#c8bfff)', 'linear-gradient(135deg,#2d6a4f,#74c69d)', 'linear-gradient(135deg,#c77dff,#7b2d8b)'];
+        const grad = grads[Math.abs(name.split('').reduce((a, ch) => a + ch.charCodeAt(0), 0)) % grads.length];
+        const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
         // ── Header ──────────────────────────────────────────────────────────
         const hdr = document.getElementById('cp-header');
@@ -4573,8 +4577,8 @@ function renderCompanyProfile() {
                 <div style="position:absolute;bottom:-30px;left:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.06)"></div>
                 <div style="display:flex;align-items:flex-start;gap:14px;position:relative;z-index:1">
                     ${c.logo
-                        ? `<img src="${c.logo}" style="width:68px;height:68px;border-radius:18px;object-fit:cover;border:2px solid rgba(255,255,255,0.35);flex-shrink:0" onerror="this.style.display='none'"/>`
-                        : `<div style="width:68px;height:68px;border-radius:18px;background:rgba(255,255,255,0.22);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;flex-shrink:0;letter-spacing:-1px">${initials}</div>`}
+                ? `<img src="${c.logo}" style="width:68px;height:68px;border-radius:18px;object-fit:cover;border:2px solid rgba(255,255,255,0.35);flex-shrink:0" onerror="this.style.display='none'"/>`
+                : `<div style="width:68px;height:68px;border-radius:18px;background:rgba(255,255,255,0.22);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;flex-shrink:0;letter-spacing:-1px">${initials}</div>`}
                     <div style="flex:1;min-width:0">
                         <p style="font-size:21px;font-weight:800;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;line-height:1.2">${c.name}</p>
                         ${c.tagline ? `<p style="font-size:12px;color:rgba(255,255,255,0.82);margin-top:3px;line-height:1.4">${c.tagline}</p>` : ''}
@@ -4593,10 +4597,10 @@ function renderCompanyProfile() {
         const statsEl = document.getElementById('cp-stats');
         if (statsEl) {
             const uid = c.uid;
-            const postedCount  = uid ? JSON.parse(localStorage.getItem('companyJobs_' + uid) || '[]').filter(j => j.status === 'active').length : 0;
+            const postedCount = uid ? JSON.parse(localStorage.getItem('companyJobs_' + uid) || '[]').filter(j => j.status === 'active').length : 0;
             const builtinCount = _allJobs.filter(j => j.company.toLowerCase() === name.toLowerCase()).length;
-            const totalJobs    = builtinCount + postedCount;
-            const localVids     = uid ? JSON.parse(localStorage.getItem('companyTraining_' + uid) || '[]') : [];
+            const totalJobs = builtinCount + postedCount;
+            const localVids = uid ? JSON.parse(localStorage.getItem('companyTraining_' + uid) || '[]') : [];
             const localPubCount = localVids.filter(v => v.privacy === 'public' || !v.privacy).length;
             const sc = (val, label, color) =>
                 `<div style="background:${cardBg};border-radius:16px;padding:12px 8px;text-align:center;border:1px solid ${border}">
@@ -4614,7 +4618,7 @@ function renderCompanyProfile() {
                         const cards = statsEl.querySelectorAll('div');
                         if (cards[2]) cards[2].querySelector('p').textContent = fVids.length;
                     }
-                }).catch(() => {});
+                }).catch(() => { });
             }
         }
 
@@ -4636,17 +4640,17 @@ function renderCompanyProfile() {
             if (c.description || c.mission) {
                 html += card(
                     sectionTitle('info', 'About', '#4d41df') +
-                    (c.description ? `<p style="font-size:13px;color:${subC};line-height:1.65;margin-bottom:${c.mission?'10px':'0'}">${c.description}</p>` : '') +
+                    (c.description ? `<p style="font-size:13px;color:${subC};line-height:1.65;margin-bottom:${c.mission ? '10px' : '0'}">${c.description}</p>` : '') +
                     (c.mission ? `<p style="font-size:13px;color:${subC};line-height:1.65;font-style:italic;border-left:3px solid #4d41df;padding-left:10px;margin-top:4px">"${c.mission}"</p>` : '')
                 );
             }
             // Highlights
             if (c.highlights) {
-                const lines = c.highlights.split('\n').map(l=>l.trim()).filter(Boolean);
+                const lines = c.highlights.split('\n').map(l => l.trim()).filter(Boolean);
                 if (lines.length) {
                     html += `<div style="margin-top:12px">${card(
                         sectionTitle('workspace_premium', 'Highlights', '#5c51a0') +
-                        lines.map(l=>`<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px">
+                        lines.map(l => `<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px">
                             <span class="material-symbols-outlined" style="font-size:15px;color:#5c51a0;margin-top:1px;font-variation-settings:'FILL' 1">check_circle</span>
                             <p style="font-size:13px;color:${subC};line-height:1.5">${l}</p>
                         </div>`).join('')
@@ -4655,11 +4659,11 @@ function renderCompanyProfile() {
             }
             // Specialisations
             if (c.specialisations) {
-                const specs = c.specialisations.split(',').map(s=>s.trim()).filter(Boolean);
+                const specs = c.specialisations.split(',').map(s => s.trim()).filter(Boolean);
                 if (specs.length) {
                     html += `<div style="margin-top:12px">${card(
                         sectionTitle('category', 'Specialisations', '#2d6a4f') +
-                        `<div style="display:flex;flex-wrap:wrap;gap:6px">${specs.map(s=>`<span style="font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:rgba(45,106,79,0.10);color:#2d6a4f">${s}</span>`).join('')}</div>`
+                        `<div style="display:flex;flex-wrap:wrap;gap:6px">${specs.map(s => `<span style="font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:rgba(45,106,79,0.10);color:#2d6a4f">${s}</span>`).join('')}</div>`
                     )}</div>`;
                 }
             }
@@ -4700,16 +4704,16 @@ function renderCompanyProfile() {
                     <div style="flex:1;min-width:0">
                         <p style="font-size:10px;font-weight:700;color:${subC};text-transform:uppercase;letter-spacing:0.05em">${label}</p>
                         ${href
-                            ? `<a href="${href}" target="_blank" style="font-size:13px;font-weight:600;color:#4d41df;text-decoration:none;word-break:break-all">${val}</a>`
-                            : `<p style="font-size:13px;font-weight:500;color:${titleC};word-break:break-all">${val}</p>`}
+                    ? `<a href="${href}" target="_blank" style="font-size:13px;font-weight:600;color:#4d41df;text-decoration:none;word-break:break-all">${val}</a>`
+                    : `<p style="font-size:13px;font-weight:500;color:${titleC};word-break:break-all">${val}</p>`}
                     </div>
                 </div>` : '';
             contactCard = card(
                 sectionTitle('contact_page', 'Contact', '#875041') +
-                cRow('mail', 'Email', c.email, c.email ? 'mailto:'+c.email : null) +
+                cRow('mail', 'Email', c.email, c.email ? 'mailto:' + c.email : null) +
                 cRow('call', 'Phone', c.phone, null) +
                 cRow('location_city', 'Address', c.address, null) +
-                cRow('language', 'Website', c.website, c.website ? (c.website.startsWith('http') ? c.website : 'https://'+c.website) : null)
+                cRow('language', 'Website', c.website, c.website ? (c.website.startsWith('http') ? c.website : 'https://' + c.website) : null)
             );
         }
 
@@ -4718,7 +4722,7 @@ function renderCompanyProfile() {
         let socialCard = '';
         if (hasSocial) {
             const sRow = (icon, label, url, color) => url ? `
-                <a href="${url.startsWith('http')?url:'https://'+url}" target="_blank"
+                <a href="${url.startsWith('http') ? url : 'https://' + url}" target="_blank"
                    style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid ${border};text-decoration:none">
                     <div style="width:32px;height:32px;border-radius:10px;background:${color}18;display:flex;align-items:center;justify-content:center;flex-shrink:0">
                         <span class="material-symbols-outlined" style="font-size:16px;color:${color}">${icon}</span>
@@ -4739,18 +4743,18 @@ function renderCompanyProfile() {
             let extra = '';
             if (detailsCard) extra += `<div style="margin-top:12px">${detailsCard}</div>`;
             if (contactCard) extra += `<div style="margin-top:12px">${contactCard}</div>`;
-            if (socialCard)  extra += `<div style="margin-top:12px">${socialCard}</div>`;
+            if (socialCard) extra += `<div style="margin-top:12px">${socialCard}</div>`;
             aboutEl.innerHTML += extra;
         }
 
         // ── Jobs ─────────────────────────────────────────────────────────────
-        const jobsEl      = document.getElementById('cp-jobs');
+        const jobsEl = document.getElementById('cp-jobs');
         const jobsCountEl = document.getElementById('cp-jobs-count');
         if (jobsEl) {
-            const uid        = c.uid;
-            const compJobs   = _allJobs.filter(j => j.company.toLowerCase() === name.toLowerCase());
+            const uid = c.uid;
+            const compJobs = _allJobs.filter(j => j.company.toLowerCase() === name.toLowerCase());
             const postedJobs = uid ? JSON.parse(localStorage.getItem('companyJobs_' + uid) || '[]').filter(j => j.status === 'active') : [];
-            const total      = compJobs.length + postedJobs.length;
+            const total = compJobs.length + postedJobs.length;
             if (jobsCountEl) jobsCountEl.textContent = total ? total + ' open' : '';
 
             const typeColor = t => t === 'Full-time' ? '#4d41df' : t === 'Part-time' ? '#875041' : t === 'Internship' ? '#5c51a0' : '#2d6a4f';
@@ -4761,12 +4765,12 @@ function renderCompanyProfile() {
                     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
                         <div style="flex:1;min-width:0">
                             <p style="font-size:14px;font-weight:700;color:${titleC};line-height:1.3">${title}</p>
-                            <p style="font-size:12px;color:${subC};margin-top:2px">${loc}${exp?' &bull; '+exp:''}</p>
+                            <p style="font-size:12px;color:${subC};margin-top:2px">${loc}${exp ? ' &bull; ' + exp : ''}</p>
                         </div>
                         ${type ? `<span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;background:${typeColor(type)}18;color:${typeColor(type)};flex-shrink:0">${type}</span>` : ''}
                     </div>
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px">
-                        <span style="font-size:12px;font-weight:700;color:#276749">${salary||''}</span>
+                        <span style="font-size:12px;font-weight:700;color:#276749">${salary || ''}</span>
                         <button onclick="event.stopPropagation();${onclick}"
                             style="height:32px;padding:0 14px;border-radius:10px;border:none;background:linear-gradient(135deg,#4d41df,#5c51a0);color:#fff;font-size:12px;font-weight:700;cursor:pointer">
                             Apply
@@ -4775,9 +4779,9 @@ function renderCompanyProfile() {
                 </div>`;
 
             const builtinCards = compJobs.map(j => jobCard(j.title, j.location, j.exp, j.type, j.salary, `openJobDetail(${j.id})`)).join('');
-            const postedCards  = postedJobs.map(j => jobCard(
-                j.title, j.location||'', j.experience||'', j.type||'',
-                j.salaryMin&&j.salaryMax ? '&#8377;'+j.salaryMin+'–&#8377;'+j.salaryMax : '',
+            const postedCards = postedJobs.map(j => jobCard(
+                j.title, j.location || '', j.experience || '', j.type || '',
+                j.salaryMin && j.salaryMax ? '&#8377;' + j.salaryMin + '–&#8377;' + j.salaryMax : '',
                 `navigateTo('jobs')`
             )).join('');
 
@@ -4799,13 +4803,13 @@ function renderCompanyProfile() {
                     videosEl.innerHTML = `<p style="font-size:13px;color:${subC};text-align:center;padding:16px 0">No public videos uploaded yet.</p>`;
                     return;
                 }
-                const vGrads = ['linear-gradient(135deg,#4d41df,#675df9)','linear-gradient(135deg,#875041,#feb5a2)','linear-gradient(135deg,#5c51a0,#c8bfff)','linear-gradient(135deg,#2d6a4f,#74c69d)','linear-gradient(135deg,#c77dff,#7b2d8b)'];
+                const vGrads = ['linear-gradient(135deg,#4d41df,#675df9)', 'linear-gradient(135deg,#875041,#feb5a2)', 'linear-gradient(135deg,#5c51a0,#c8bfff)', 'linear-gradient(135deg,#2d6a4f,#74c69d)', 'linear-gradient(135deg,#c77dff,#7b2d8b)'];
                 // Store videos in a window-level map so onclick can access by index safely
                 window._cpVideosMap = {};
                 videosEl.innerHTML = videos.map((v, i) => {
                     window._cpVideosMap[i] = v;
                     const vGrad = vGrads[i % vGrads.length];
-                    const date  = v.uploadedAt ? new Date(v.uploadedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
+                    const date = v.uploadedAt ? new Date(v.uploadedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
                     return `
                     <div onclick="openPublicVideoPlayer(window._cpVideosMap[${i}])"
                         style="background:${cardBg};border-radius:16px;overflow:hidden;border:1px solid ${border};margin-bottom:10px;cursor:pointer;transition:transform 0.15s"
@@ -4818,9 +4822,9 @@ function renderCompanyProfile() {
                             ${v.fileSize ? `<span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.60);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:6px">${v.fileSize}</span>` : ''}
                         </div>
                         <div style="padding:12px">
-                            <p style="font-size:13px;font-weight:700;color:${titleC};line-height:1.3">${v.title||'Untitled'}</p>
+                            <p style="font-size:13px;font-weight:700;color:${titleC};line-height:1.3">${v.title || 'Untitled'}</p>
                             ${v.desc ? `<p style="font-size:12px;color:${subC};margin-top:4px;line-height:1.4">${v.desc}</p>` : ''}
-                            <p style="font-size:11px;color:${subC};margin-top:6px">${date}${v.fileName?' &bull; '+v.fileName:''}</p>
+                            <p style="font-size:11px;color:${subC};margin-top:6px">${date}${v.fileName ? ' &bull; ' + v.fileName : ''}</p>
                         </div>
                     </div>`;
                 }).join('');
@@ -4858,13 +4862,13 @@ window.renderCompanyProfile = renderCompanyProfile;
 
 function searchCandidates() {
     if (_currentRole() !== 'company') return; // role-guard
-    const skillQ  = (document.getElementById('cand-search-skills')?.value  || '').toLowerCase().trim();
-    const qualQ   = (document.getElementById('cand-search-qual')?.value    || '').toLowerCase().trim();
-    const expQ    = (document.getElementById('cand-search-exp')?.value     || '').toLowerCase().trim();
-    const locQ    = (document.getElementById('cand-search-loc')?.value     || '').toLowerCase().trim();
-    const domainQ = (document.getElementById('cand-search-domain')?.value  || '').toLowerCase().trim();
+    const skillQ = (document.getElementById('cand-search-skills')?.value || '').toLowerCase().trim();
+    const qualQ = (document.getElementById('cand-search-qual')?.value || '').toLowerCase().trim();
+    const expQ = (document.getElementById('cand-search-exp')?.value || '').toLowerCase().trim();
+    const locQ = (document.getElementById('cand-search-loc')?.value || '').toLowerCase().trim();
+    const domainQ = (document.getElementById('cand-search-domain')?.value || '').toLowerCase().trim();
     const container = document.getElementById('candidates-list');
-    const countEl   = document.getElementById('candidates-count');
+    const countEl = document.getElementById('candidates-count');
     if (!container) return;
 
     container.innerHTML = `<div style="display:flex;align-items:center;gap:10px;padding:20px;background:rgba(77,65,223,0.05);border-radius:14px"><span class="material-symbols-outlined text-primary" style="font-size:20px;animation:spin 1s linear infinite">progress_activity</span><p style="font-size:13px;color:#777587">Searching candidates...</p></div>`;
@@ -4874,10 +4878,10 @@ function searchCandidates() {
             let candidates = snap.docs.map(d => ({ id: d.id, ...d.data() }));
 
             // Apply filters
-            if (skillQ)  candidates = candidates.filter(c => (c.skills || '').toLowerCase().includes(skillQ));
-            if (qualQ)   candidates = candidates.filter(c => (c.education || c.jobPref || '').toLowerCase().includes(qualQ));
-            if (expQ)    candidates = candidates.filter(c => (c.experience || '').toLowerCase().includes(expQ));
-            if (locQ)    candidates = candidates.filter(c => (c.location || '').toLowerCase().includes(locQ));
+            if (skillQ) candidates = candidates.filter(c => (c.skills || '').toLowerCase().includes(skillQ));
+            if (qualQ) candidates = candidates.filter(c => (c.education || c.jobPref || '').toLowerCase().includes(qualQ));
+            if (expQ) candidates = candidates.filter(c => (c.experience || '').toLowerCase().includes(expQ));
+            if (locQ) candidates = candidates.filter(c => (c.location || '').toLowerCase().includes(locQ));
             if (domainQ) candidates = candidates.filter(c => (c.skills || c.title || c.bio || '').toLowerCase().includes(domainQ));
 
             if (countEl) countEl.textContent = `${candidates.length} candidate${candidates.length !== 1 ? 's' : ''}`;
@@ -4898,8 +4902,8 @@ function searchCandidates() {
             const cardBg = _dark ? '#1c1b2e' : '#fff';
             const border = _dark ? '#2a2840' : '#eae6f3';
             const titleC = _dark ? '#e8e6f4' : '#1b1b24';
-            const subC   = _dark ? '#9e9bb8' : '#777587';
-            const grads  = ['linear-gradient(135deg,#4d41df,#675df9)','linear-gradient(135deg,#875041,#feb5a2)','linear-gradient(135deg,#5c51a0,#c8bfff)','linear-gradient(135deg,#2d6a4f,#74c69d)','linear-gradient(135deg,#c77dff,#7b2d8b)'];
+            const subC = _dark ? '#9e9bb8' : '#777587';
+            const grads = ['linear-gradient(135deg,#4d41df,#675df9)', 'linear-gradient(135deg,#875041,#feb5a2)', 'linear-gradient(135deg,#5c51a0,#c8bfff)', 'linear-gradient(135deg,#2d6a4f,#74c69d)', 'linear-gradient(135deg,#c77dff,#7b2d8b)'];
 
             container.innerHTML = candidates.map((c, i) => {
                 const initials = (c.name || 'U').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
@@ -4917,8 +4921,8 @@ function searchCandidates() {
                         </div>
                     </div>
                     <div style="display:flex;gap:8px;margin-top:12px">
-                        <button onclick="inviteCandidate('${c.id}','${(c.name||'').replace(/'/g,'')}')" style="flex:1;height:36px;border-radius:10px;border:none;background:linear-gradient(135deg,#4d41df,#5c51a0);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif">Invite</button>
-                        <button onclick="contactCandidate('${c.email||''}')" style="flex:1;height:36px;border-radius:10px;border:1px solid rgba(77,65,223,0.25);background:rgba(77,65,223,0.06);color:#4d41df;font-size:12px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif">Contact</button>
+                        <button onclick="inviteCandidate('${c.id}','${(c.name || '').replace(/'/g, '')}')" style="flex:1;height:36px;border-radius:10px;border:none;background:linear-gradient(135deg,#4d41df,#5c51a0);color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif">Invite</button>
+                        <button onclick="contactCandidate('${c.email || ''}')" style="flex:1;height:36px;border-radius:10px;border:1px solid rgba(77,65,223,0.25);background:rgba(77,65,223,0.06);color:#4d41df;font-size:12px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif">Contact</button>
                     </div>
                 </div>`;
             }).join('');
@@ -5043,12 +5047,12 @@ window.updateApplicationStatus = updateApplicationStatus;
         const cardBg = _dark ? '#1c1b2e' : '#fff';
         const border = _dark ? '#2a2840' : '#eae6f3';
         const titleC = _dark ? '#e8e6f4' : '#1b1b24';
-        const subC   = _dark ? '#9e9bb8' : '#777587';
+        const subC = _dark ? '#9e9bb8' : '#777587';
 
-        const statusStyle = s => s === 'Applied'     ? 'background:rgba(77,65,223,0.10);color:#4d41df'
-                               : s === 'Shortlisted' ? 'background:rgba(92,81,160,0.10);color:#5c51a0'
-                               : s === 'Hired'       ? 'background:rgba(45,106,79,0.10);color:#276749'
-                               :                       'background:rgba(135,80,65,0.10);color:#875041';
+        const statusStyle = s => s === 'Applied' ? 'background:rgba(77,65,223,0.10);color:#4d41df'
+            : s === 'Shortlisted' ? 'background:rgba(92,81,160,0.10);color:#5c51a0'
+                : s === 'Hired' ? 'background:rgba(45,106,79,0.10);color:#276749'
+                    : 'background:rgba(135,80,65,0.10);color:#875041';
 
         container.innerHTML = apps.map(app => {
             const date = new Date(app.appliedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
@@ -5140,18 +5144,18 @@ function appendChatBubble(text, isUser) {
     const chatArea = document.getElementById('ai-chat-area');
     const quickActions = document.getElementById('ai-quick-actions');
     const bubbleWrapper = document.createElement('div');
-    
+
     // Parse actions [ACTION:XXXX] from text and create buttons
     let displayText = text;
     let actionButtonsHTML = '';
-    
+
     if (!isUser) {
         const actionMatch = displayText.match(/\[ACTION:(.*?)\]/g);
         if (actionMatch) {
             actionMatch.forEach(act => {
                 displayText = displayText.replace(act, '');
                 const actionType = act.replace('[ACTION:', '').replace(']', '').trim();
-                
+
                 if (actionType === 'FIND_JOBS') {
                     actionButtonsHTML += `<button onclick="navigateTo('jobs')" class="mt-2 bg-primary/10 text-primary px-3 py-1.5 rounded-xl text-[12px] font-bold active:scale-95 transition-all">🔍 Browse Jobs</button>`;
                 } else if (actionType === 'EDIT_PROFILE') {
@@ -5252,16 +5256,19 @@ async function handleSendAIMessage(msg = null) {
 
     try {
         const API_KEY = "AIzaSyA-V_RfVolXcW4M4HjkYv1S-5XskiyZ1h0";
-        const url = \`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=\${API_KEY}\`;
-        
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+
         // Prepare the conversation context for Gemini API
         // Format history according to Gemini requirements: role (user/model) and parts (text)
         let rawHistory = getAIChatHistory().slice(-10);
-        
+
         // Gemini strictly requires alternating roles starting with 'user'
         let validHistory = [];
         let expectedRole = 'user'; // We know the last message we appended was 'user'
-        
+
         // Build sequence backwards to ensure ending with the latest user message
         for (let i = rawHistory.length - 1; i >= 0; i--) {
             const msgRole = rawHistory[i].role === 'assistant' ? 'model' : 'user';
@@ -5273,12 +5280,12 @@ async function handleSendAIMessage(msg = null) {
                 expectedRole = expectedRole === 'user' ? 'model' : 'user';
             }
         }
-        
+
         // The conversation MUST start with a 'user' role
         if (validHistory.length > 0 && validHistory[0].role === 'model') {
             validHistory.shift();
         }
-        
+
         // Add a system context prompt to the very first user message
         const systemPrompt = "You are Tarini AI Assistant. Be supportive, friendly, concise, and safety-focused. If asked about jobs, ask for skills/preferences. If scam suspected, warn the user. Use [ACTION:FIND_JOBS], [ACTION:EDIT_PROFILE], [ACTION:MY_APPLICATIONS] to trigger UI buttons.\n\nUser: ";
         if (validHistory.length > 0 && validHistory[0].role === 'user') {
@@ -5294,16 +5301,29 @@ async function handleSendAIMessage(msg = null) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            signal: controller.signal
         });
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
             const errorDetails = await response.text();
             console.error("Gemini API Error Details:", errorDetails);
-            throw new Error(\`API Error: \${response.status}\`);
+            let parsedError = errorDetails;
+            try { parsedError = JSON.parse(errorDetails).error.message; } catch (e) { }
+            throw new Error(`API Error ${response.status}: ${parsedError}`);
         }
 
         const data = await response.json();
+
+        if (!data.candidates || data.candidates.length === 0) {
+            throw new Error("No response generated. Please try again.");
+        }
+
+        if (!data.candidates[0].content) {
+            throw new Error("Response was blocked due to safety settings.");
+        }
+
         const replyText = data.candidates[0].content.parts[0].text;
 
         removeAILoading();
@@ -5315,7 +5335,12 @@ async function handleSendAIMessage(msg = null) {
 
     } catch (error) {
         removeAILoading();
-        appendChatBubble("I'm sorry, I'm having trouble connecting right now. Please try again later.", false);
+        let errorMsg = error.message;
+        if (error.name === 'AbortError') {
+            errorMsg = "Request timed out. The network might be slow or blocked.";
+        }
+        // Display the EXACT error to the user so we can see what's wrong
+        appendChatBubble("⚠️ System Error: " + errorMsg, false);
         console.error("AI Error:", error);
     } finally {
         if (btn) btn.disabled = false;
@@ -5353,3 +5378,140 @@ function generateMockAIResponse(userInput) {
         }
     };
 })();
+
+// ============================================================
+// AI ASSISTANT CHAT — Direct Gemini API (frontend)
+// ============================================================
+
+const _GEMINI_API_KEY = 'AIzaSyBQSk_UV96syV1I9uE0QQqGsWOH3hm_htM';
+const _GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${_GEMINI_API_KEY}`;
+
+const _AI_SYSTEM_PROMPT = `You are the Tarini AI Assistant. You are a smart, supportive, and safety-focused AI designed specifically for a women-focused job platform named Tarini.
+
+CORE BEHAVIOR:
+- Friendly, supportive, and intelligent tone.
+- Respond in simple, clear language.
+- You can understand and reply in Hinglish, Hindi, and English. Match the user's language.
+- Provide actionable responses, not just general answers.
+- ALWAYS prioritize safety.
+
+KEY RULES:
+1. Smart Job Matching: When users ask for jobs, ask about their skills, experience, location, and preferences if not provided.
+2. Resume & Profile Assistance: Help create and improve resumes.
+3. Career Guidance: Act like a career coach with step-by-step guidance.
+4. Safety & Trust Layer: Detect and warn about suspicious job postings.
+5. Women-Friendly Job Support: Suggest remote, part-time, flexible jobs.
+6. Emotional Support: Encourage users during their job search.
+
+QUICK ACTIONS — include these tags when relevant:
+- To navigate to jobs: [ACTION:FIND_JOBS]
+- To edit profile: [ACTION:EDIT_PROFILE]
+- To view applications: [ACTION:MY_APPLICATIONS]
+
+Keep responses concise and easy to read on a mobile device.`;
+
+// In-memory chat history for context
+const _aiChatHistory = [];
+
+function _appendAiDotStyle() {
+    if (document.getElementById('ai-dot-style')) return;
+    const s = document.createElement('style');
+    s.id = 'ai-dot-style';
+    s.textContent = '@keyframes aiDot{0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}';
+    document.head.appendChild(s);
+}
+
+async function sendAIMessage() {
+    const input = document.getElementById('ai-chat-input');
+    const container = document.getElementById('ai-chat-container');
+    if (!input || !container) return;
+
+    const message = input.value.trim();
+    if (!message) return;
+
+    // Append user bubble
+    const userBubble = document.createElement('div');
+    userBubble.style.cssText = 'display:flex;justify-content:flex-end;margin-bottom:8px';
+    userBubble.innerHTML = `<div style="background:#4d41df;color:#fff;border-radius:18px 18px 4px 18px;padding:12px 16px;max-width:75%;font-size:14px;line-height:1.5">${_escapeHtml(message)}</div>`;
+    container.appendChild(userBubble);
+    input.value = '';
+    container.scrollTop = container.scrollHeight;
+
+    // Typing indicator
+    _appendAiDotStyle();
+    const typingBubble = document.createElement('div');
+    typingBubble.id = 'ai-typing';
+    typingBubble.style.cssText = 'margin-bottom:8px';
+    typingBubble.innerHTML = '<div style="background:#eae6f3;border-radius:18px 18px 18px 4px;padding:12px 16px;width:fit-content;display:inline-flex;gap:5px;align-items:center"><span style="width:7px;height:7px;border-radius:50%;background:#4d41df;display:inline-block;animation:aiDot 1s infinite 0s"></span><span style="width:7px;height:7px;border-radius:50%;background:#4d41df;display:inline-block;animation:aiDot 1s infinite 0.2s"></span><span style="width:7px;height:7px;border-radius:50%;background:#4d41df;display:inline-block;animation:aiDot 1s infinite 0.4s"></span></div>';
+    container.appendChild(typingBubble);
+    container.scrollTop = container.scrollHeight;
+
+    // Add to history
+    _aiChatHistory.push({ role: 'user', parts: [{ text: message }] });
+
+    try {
+        const body = {
+            system_instruction: { parts: [{ text: _AI_SYSTEM_PROMPT }] },
+            contents: _aiChatHistory
+        };
+
+        const res = await fetch(_GEMINI_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            const errMsg = errData.error?.message || `HTTP ${res.status}`;
+            if (errMsg.includes('quota') || errMsg.includes('Quota')) {
+                const retryMatch = errMsg.match(/(\d+(\.\d+)?)s/);
+                const retryTime = retryMatch ? Math.ceil(parseFloat(retryMatch[1])) : 60;
+                throw new Error(`AI is busy. Please wait ${retryTime} seconds and try again.`);
+            }
+            throw new Error(errMsg);
+        }
+
+        const data = await res.json();
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'I could not generate a response.';
+
+        // Add AI reply to history
+        _aiChatHistory.push({ role: 'model', parts: [{ text: reply }] });
+        // Keep history to last 20 messages
+        if (_aiChatHistory.length > 20) _aiChatHistory.splice(0, 2);
+
+        typingBubble.remove();
+
+        // Parse [ACTION:...] commands
+        const actionMatch = reply.match(/\[ACTION:(\w+)\]/);
+        const cleanReply = reply.replace(/\[ACTION:\w+\]/g, '').trim();
+
+        const aiBubble = document.createElement('div');
+        aiBubble.style.cssText = 'margin-bottom:8px';
+
+        const actionMap = { FIND_JOBS: 'jobs', EDIT_PROFILE: 'edit-profile', MY_APPLICATIONS: 'applications' };
+        const actionBtn = actionMatch && actionMap[actionMatch[1]]
+            ? `<br><button onclick="navigateTo('${actionMap[actionMatch[1]]}')" style="margin-top:8px;font-size:12px;font-weight:700;color:#4d41df;background:rgba(77,65,223,0.10);border:none;padding:4px 12px;border-radius:999px;cursor:pointer">${actionMatch[1].replace(/_/g,' ')}</button>`
+            : '';
+
+        aiBubble.innerHTML = `<div style="background:#eae6f3;border-radius:18px 18px 18px 4px;padding:12px 16px;max-width:80%;font-size:14px;line-height:1.6;white-space:pre-wrap;display:inline-block">${_escapeHtml(cleanReply)}${actionBtn}</div>`;
+        container.appendChild(aiBubble);
+
+    } catch (err) {
+        typingBubble.remove();
+        // Remove the failed user message from history
+        _aiChatHistory.pop();
+        const errBubble = document.createElement('div');
+        errBubble.style.cssText = 'margin-bottom:8px';
+        errBubble.innerHTML = `<div style="background:#ffdad6;border-radius:18px 18px 18px 4px;padding:12px 16px;max-width:80%;font-size:13px;color:#ba1a1a;display:inline-block">⚠️ ${err.message || 'Could not reach AI. Check your connection.'}</div>`;
+        container.appendChild(errBubble);
+        console.error('AI error:', err);
+    }
+
+    container.scrollTop = container.scrollHeight;
+}
+window.sendAIMessage = sendAIMessage;
+
+function _escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
